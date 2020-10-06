@@ -26,6 +26,25 @@ var config =
 		'samsung internet for android' : '>=11.1.1.52'
 	},
 
+	// User settings in the settings panel
+	// Each option specifies a default value and
+	// a locked attribute let the UI know if it has to be shown 
+	userSettings:
+	{ 
+		videoResolution: { value: 'low', locked: true },
+		videoFrameRate: { value: 15, locked: true },
+		screenSharingResolution: { value: 'high', locked: true },
+		screenSharingFrameRate: { value: 5, locked: true },
+		audioEchoCancellation: { value: true, locked: true },
+		audioAutoGainControl: { value: true, locked: true },
+		audioNoiseSuppression: { value: true, locked: true },
+		audioVoiceActivityMute : { value: false, locked: true },
+		permanentTopBar : { value: true, locked: true },
+		hiddenControls : { value: false, locked: true },
+		buttonControlBar : { value: true, locked: true },
+		drawerOverlayed : { value: true, locked: true },
+		showNotifications : { value: true, locked: false }
+	},
 	/**
 	 * Resolutions:
 	 * 

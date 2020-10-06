@@ -97,16 +97,19 @@ const AppearenceSettings = ({
 					</FormHelperText>
 				</FormControl>
 			</form>
-			<FormControlLabel
-				className={classnames(classes.setting, classes.switchLabel)}
-				control={
-					<Switch checked={settings.permanentTopBar} onChange={onTogglePermanentTopBar} value='permanentTopBar' />}
-				labelPlacement='start'
-				label={intl.formatMessage({
-					id             : 'settings.permanentTopBar',
-					defaultMessage : 'Permanent top bar'
-				})}
-			/>
+			{ !window.config.userSettings.permanentTopBar.locked && 
+				<FormControlLabel
+					className={classnames(classes.setting, classes.switchLabel)}
+					control={
+						<Switch checked={settings.permanentTopBar} onChange={onTogglePermanentTopBar} value='permanentTopBar' />}
+					labelPlacement='start'
+					label={intl.formatMessage({
+						id             : 'settings.permanentTopBar',
+						defaultMessage : 'Permanent top bar'
+					})}
+				/>
+			}
+			{ !window.config.userSettings.hiddenControls.locked && 
 			<FormControlLabel
 				className={classnames(classes.setting, classes.switchLabel)}
 				control={<Switch checked={settings.hiddenControls} onChange={onToggleHiddenControls} value='hiddenControls' />}
@@ -116,6 +119,8 @@ const AppearenceSettings = ({
 					defaultMessage : 'Hidden media controls'
 				})}
 			/>
+			}
+			{ !window.config.userSettings.buttonControlBar.locked && 
 			<FormControlLabel
 				className={classnames(classes.setting, classes.switchLabel)}
 				control={<Switch checked={settings.buttonControlBar} onChange={onToggleButtonControlBar} value='buttonControlBar' />}
@@ -125,7 +130,8 @@ const AppearenceSettings = ({
 					defaultMessage : 'Separate media controls'
 				})}
 			/>
-			{ !isMobile &&
+			}
+			{ !isMobile && !window.config.userSettings.drawerOverlayed.locked && 
 				<FormControlLabel
 					className={classnames(classes.setting, classes.switchLabel)}
 					control={<Switch checked={settings.drawerOverlayed} onChange={onToggleDrawerOverlayed} value='drawerOverlayed' />}
