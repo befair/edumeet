@@ -500,6 +500,28 @@ const TopBar = (props) =>
 							</span>
 						</Tooltip>
 						}
+						<Tooltip
+							title={intl.formatMessage({
+								id             : 'tooltip.participants',
+								defaultMessage : 'Show participants'
+							})}
+						>
+							<IconButton
+								aria-label={intl.formatMessage({
+									id             : 'tooltip.participants',
+									defaultMessage : 'Show participants'
+								})}
+								color='inherit'
+								onClick={() => { handleMenuClose(); openUsersTab(); }}
+							>
+								<Badge
+									color='primary'
+									badgeContent={peersLength + 1}
+								>
+									<PeopleIcon />
+								</Badge>
+							</IconButton>
+						</Tooltip>
 						<IconButton
 							aria-haspopup
 							onClick={handleMobileMenuOpen}
@@ -694,30 +716,6 @@ const TopBar = (props) =>
 						<FormattedMessage
 							id='tooltip.settings'
 							defaultMessage='Show settings'
-						/>
-					</p>
-				</MenuItem>
-				<MenuItem
-					aria-label={intl.formatMessage({
-						id             : 'tooltip.participants',
-						defaultMessage : 'Show participants'
-					})}
-					onClick={() =>
-					{
-						handleMenuClose();
-						openUsersTab();
-					}}
-				>
-					<Badge
-						color='primary'
-						badgeContent={peersLength + 1}
-					>
-						<PeopleIcon />
-					</Badge>
-					<p className={classes.moreAction}>
-						<FormattedMessage
-							id='tooltip.participants'
-							defaultMessage='Show participants'
 						/>
 					</p>
 				</MenuItem>
