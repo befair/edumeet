@@ -745,17 +745,63 @@ const TopBar = (props) =>
 					</MenuItem>
 				}
 				<MenuItem
-					aria-label={intl.formatMessage({
-						id             : 'label.moreActions',
-						defaultMessage : 'Add video'
-					})}
-					onClick={(event) => handleMenuOpen(event, 'moreActions')}
+					disabled={!canProduceExtraVideo}
+					onClick={() =>
+					{
+						handleMenuClose();
+						setExtraVideoOpen(!room.extraVideoOpen);
+					}}
 				>
-					<ExtensionIcon />
+					<VideoCallIcon
+						aria-label={intl.formatMessage({
+							id             : 'label.addVideo',
+							defaultMessage : 'Add video'
+						})}
+					/>
 					<p className={classes.moreAction}>
 						<FormattedMessage
-							id='label.moreActions'
-							defaultMessage='More actions'
+							id='label.addVideo'
+							defaultMessage='Add video'
+						/>
+					</p>
+				</MenuItem>
+				<MenuItem
+					onClick={() =>
+					{
+						handleMenuClose();
+						setHelpOpen(!room.helpOpen);
+					}}
+				>
+					<HelpIcon
+						aria-label={intl.formatMessage({
+							id             : 'room.help',
+							defaultMessage : 'Help'
+						})}
+					/>
+					<p className={classes.moreAction}>
+						<FormattedMessage
+							id='room.help'
+							defaultMessage='Help'
+						/>
+					</p>
+				</MenuItem>
+				<MenuItem
+					onClick={() =>
+					{
+						handleMenuClose();
+						setAboutOpen(!room.aboutOpen);
+					}}
+				>
+					<InfoIcon
+						aria-label={intl.formatMessage({
+							id             : 'room.about',
+							defaultMessage : 'About'
+						})}
+					/>
+					<p className={classes.moreAction}>
+						<FormattedMessage
+							id='room.about'
+							defaultMessage='About'
 						/>
 					</p>
 				</MenuItem>
