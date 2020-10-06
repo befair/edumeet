@@ -113,13 +113,13 @@ const styles = (theme) =>
 		sectionDesktop : {
 			display                      : 'none',
 			[theme.breakpoints.up('md')] : {
-				display : 'flex'
+				display : 'none'
 			}
 		},
 		sectionMobile : {
 			display                      : 'flex',
 			[theme.breakpoints.up('md')] : {
-				display : 'none'
+				display : 'flex'
 			}
 		},
 		actionButton :
