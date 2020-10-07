@@ -41,6 +41,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import HelpIcon from '@material-ui/icons/Help';
 import InfoIcon from '@material-ui/icons/Info';
+import ChatIcon from '@material-ui/icons/Chat';
 
 const styles = (theme) =>
 	({
@@ -230,6 +231,7 @@ const TopBar = (props) =>
 		setLockDialogOpen,
 		toggleToolArea,
 		openUsersTab,
+		openChat,
 		unread,
 		canProduceExtraVideo,
 		canLock,
@@ -500,6 +502,28 @@ const TopBar = (props) =>
 							</span>
 						</Tooltip>
 						}
+						<Tooltip
+							title={intl.formatMessage({
+								id             : 'tooltip.chat',
+								defaultMessage : 'Show chat'
+							})}
+						>
+							<IconButton
+								aria-label={intl.formatMessage({
+									id             : 'tooltip.chat',
+									defaultMessage : 'Show chat'
+								})}
+								color='inherit'
+								onClick={() => { handleMenuClose(); openChat(); }}
+							>
+								<Badge
+									color='primary'
+									badgeContent={unread}
+								>
+									<ChatIcon />
+								</Badge>
+							</IconButton>
+						</Tooltip>
 						<Tooltip
 							title={intl.formatMessage({
 								id             : 'tooltip.participants',
@@ -834,6 +858,7 @@ TopBar.propTypes =
 	setLockDialogOpen    : PropTypes.func.isRequired,
 	toggleToolArea       : PropTypes.func.isRequired,
 	openUsersTab         : PropTypes.func.isRequired,
+	openChat	         : PropTypes.func.isRequired,
 	unread               : PropTypes.number.isRequired,
 	canProduceExtraVideo : PropTypes.bool.isRequired,
 	canLock              : PropTypes.bool.isRequired,
@@ -909,6 +934,11 @@ const mapDispatchToProps = (dispatch) =>
 		{
 			dispatch(toolareaActions.openToolArea());
 			dispatch(toolareaActions.setToolTab('users'));
+		},
+		openChat : () =>
+		{
+			dispatch(toolareaActions.openToolArea());
+			dispatch(toolareaActions.setToolTab('chat'));
 		}
 	});
 
