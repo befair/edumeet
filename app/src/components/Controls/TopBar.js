@@ -22,7 +22,6 @@ import Menu from '@material-ui/core/Menu';
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
 import Paper from '@material-ui/core/Paper';
@@ -229,7 +228,6 @@ const TopBar = (props) =>
 		setHelpOpen,
 		setAboutOpen,
 		setLockDialogOpen,
-		toggleToolArea,
 		openUsersTab,
 		openChat,
 		unread,
@@ -287,22 +285,6 @@ const TopBar = (props) =>
 				)}
 			>
 				<Toolbar>
-					<PulsingBadge
-						color='secondary'
-						badgeContent={unread}
-						onClick={() => toggleToolArea()}
-					>
-						<IconButton
-							color='inherit'
-							aria-label={intl.formatMessage({
-								id             : 'label.openDrawer',
-								defaultMessage : 'Open drawer'
-							})}
-							className={classes.menuButton}
-						>
-							<MenuIcon />
-						</IconButton>
-					</PulsingBadge>
 					{ window.config.logo && <img alt='Logo' className={classes.logo} src={window.config.logo} /> }
 					<Typography
 						className={classes.title}
