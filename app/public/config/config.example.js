@@ -153,8 +153,6 @@ var config =
 	maxLastN             : 5,
 	// If truthy, users can NOT change number of speakers visible
 	lockLastN            : false,
-	// Enable "file sharing" tab
-	enableFileSharing : true,
 	// Add file and uncomment for adding logo to appbar
 	// logo       : 'images/logo.svg',
 	title                : 'Multiparty meeting',

@@ -226,7 +226,7 @@ class Room extends React.PureComponent
 							<SwipeableDrawer
 								container={container}
 								variant='temporary'
-								anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+								anchor='right'
 								open={toolAreaOpen}
 								onClose={() => toggleToolArea()}
 								onOpen={() => toggleToolArea()}
