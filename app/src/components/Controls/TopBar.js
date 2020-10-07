@@ -42,6 +42,10 @@ import HelpIcon from '@material-ui/icons/Help';
 import InfoIcon from '@material-ui/icons/Info';
 import ChatIcon from '@material-ui/icons/Chat';
 import CallEndIcon from '@material-ui/icons/CallEnd';
+import FileshareIcon from '@material-ui/icons/CloudDownload';
+
+const enableFileSharing = (window.config.enableFileSharing === undefined)
+						|| (window.config.enableFileSharing === true);
 
 const styles = (theme) =>
 	({
@@ -231,6 +235,7 @@ const TopBar = (props) =>
 		setLockDialogOpen,
 		openUsersTab,
 		openChat,
+		openFileshare,
 		unread,
 		canProduceExtraVideo,
 		canLock,
@@ -507,6 +512,30 @@ const TopBar = (props) =>
 								</Badge>
 							</IconButton>
 						</Tooltip>
+						{ enableFileSharing ? 
+							<Tooltip
+								title={intl.formatMessage({
+									id             : 'label.shareFile',
+									defaultMessage : 'Share file'
+								})}
+							>
+								<IconButton
+									aria-label={intl.formatMessage({
+										id             : 'label.shareFile',
+										defaultMessage : 'Share file'
+									})}
+									color='inherit'
+									onClick={() => { handleMenuClose(); openFileshare(); }}
+								>
+									<Badge
+										color='primary'
+										badgeContent={unread}
+									>
+										<FileshareIcon />
+									</Badge>
+								</IconButton>
+							</Tooltip>
+						: null}
 						<Tooltip
 							title={intl.formatMessage({
 								id             : 'tooltip.participants',
@@ -544,7 +573,7 @@ const TopBar = (props) =>
 						size="small"
 						startIcon={<CallEndIcon />}
 						className={classes.button}
-						style={{ borderRadius: 100 }}
+						style={{ borderRadius: 60 }}
 						onClick={() => roomClient.close()}
 					>
 						<FormattedMessage
@@ -841,6 +870,7 @@ TopBar.propTypes =
 	toggleToolArea       : PropTypes.func.isRequired,
 	openUsersTab         : PropTypes.func.isRequired,
 	openChat	         : PropTypes.func.isRequired,
+	openFileshare	     : PropTypes.func.isRequired,
 	unread               : PropTypes.number.isRequired,
 	canProduceExtraVideo : PropTypes.bool.isRequired,
 	canLock              : PropTypes.bool.isRequired,
@@ -921,6 +951,11 @@ const mapDispatchToProps = (dispatch) =>
 		{
 			dispatch(toolareaActions.openToolArea());
 			dispatch(toolareaActions.setToolTab('chat'));
+		},
+		openFileshare : () =>
+		{
+			dispatch(toolareaActions.openToolArea());
+			dispatch(toolareaActions.setToolTab('files'));
 		}
 	});
 

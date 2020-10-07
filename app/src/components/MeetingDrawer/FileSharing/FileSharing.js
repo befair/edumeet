@@ -10,6 +10,7 @@ import FileList from './FileList';
 import FileSharingModerator from './FileSharingModerator';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import UploadIcon from '@material-ui/icons/Publish';
 
 const styles = (theme) =>
 	({
@@ -101,7 +102,10 @@ const FileSharing = (props) =>
 						variant='contained'
 						component='span'
 						className={classes.button}
+						color="primary"
+						size="large"
 						disabled={!canShareFiles || !canShare}
+						startIcon={<UploadIcon />}
 					>
 						{buttonDescription}
 					</Button>
@@ -112,7 +116,9 @@ const FileSharing = (props) =>
 							variant='contained'
 							component='span'
 							className={classes.button}
+							color="primary"
 							disabled={!canShareFiles || !canShare}
+							startIcon={<UploadIcon />}
 						>
 							{buttonGalleryDescription}
 						</Button>
