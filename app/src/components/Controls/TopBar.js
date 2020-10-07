@@ -41,6 +41,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import HelpIcon from '@material-ui/icons/Help';
 import InfoIcon from '@material-ui/icons/Info';
 import ChatIcon from '@material-ui/icons/Chat';
+import CallEndIcon from '@material-ui/icons/CallEnd';
 
 const styles = (theme) =>
 	({
@@ -538,13 +539,12 @@ const TopBar = (props) =>
 					</div>
 					<div className={classes.divider} />
 					<Button
-						aria-label={intl.formatMessage({
-							id             : 'label.leave',
-							defaultMessage : 'Leave'
-						})}
-						className={classes.actionButton}
-						variant='contained'
-						color='secondary'
+						variant="contained"
+						color="secondary"
+						size="small"
+						startIcon={<CallEndIcon />}
+						className={classes.button}
+						style={{ borderRadius: 100 }}
 						onClick={() => roomClient.close()}
 					>
 						<FormattedMessage
