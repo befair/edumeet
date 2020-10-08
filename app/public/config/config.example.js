@@ -1,13 +1,105 @@
 // eslint-disable-next-line
 var config =
 {
-	loginEnabled    : false,
-	developmentPort : 3443,
-	productionPort  : 443,
+	// Title in appbar
+	title                : 'EduMeet',
+	// Logo in appbar
+	// logo       		 : 'images/logo.svg',
+
+	// Service & Support URL (if not set then not displayed)
+	supportUrl           : '',
+	// Privacy and dataprotection URL or path
+	privacyUrl           : 'privacy/privacy.html',
+
+	// Enable authentication service
+	loginEnabled   		 : false,
+
+	// Enable "file sharing" tab
+	enableFileSharing	 : true,
+
+	// Port configuration
+	developmentPort 	 : 3443,
+	productionPort  	 : 443,
+
+	/** Resolutions:
+	 * 	low ~ 320x240
+	 * 	medium ~ 640x480
+	 * 	high ~ 1280x720
+	 * 	veryhigh ~ 1920x1080
+	 * 	ultra ~ 3840x2560
+	 **/
+
+	/** Frame rates:
+	 * 	1, 5, 10, 15, 20, 25, 30
+	 **/
+
+	// Webcam video configuration
+	defaultResolution             : 'medium',
+	defaultFrameRate              : 15,
+
+	// Shared screen video configuration
+	defaultScreenResolution       : 'veryhigh',
+	defaultScreenSharingFrameRate : 5,
+
+	// Lock configured video settings
+	lockVideoSettings             : false,
+
+	// Users layout default (democratic, filmstrip)
+	defaultLayout				  : 'democratic',
+
+	// Determines whether a specific option should be visibile to the user
+	hideUserSetting:
+	{ 
+		videoSettings 			: true,
+		audioSettings			: true,
+		showNotifications 		: true,
+		notificationSound		: true,
+		permanentTopBar 		: true,
+		buttonControlBar 		: true,
+		hiddenControls 			: true,
+		drawerOverlayed 		: true,
+		advancedMode			: true,
+		lastN					: true
+	},
 
 	/**
-	 * Supported browsers version 
-	 * in bowser satisfy format.
+	 * Set max number participants in one room that join 
+	 * unmuted. Next participant will join automatically muted
+	 * Default value is 4
+	 * 
+	 * Set it to 0 to auto mute all, 
+	 * Set it to negative (-1) to never automatically auto mute
+	 * but use it with caution
+	 * full mesh audio strongly decrease room capacity! 
+	 */
+	autoMuteThreshold    	: 4,
+
+	// If true, will show media control buttons in separate
+	// control bar, not in the ME container.
+	buttonControlBar     	: true,
+
+	// If false, will push videos away to make room for side
+	// drawer. If true, will overlay side drawer over videos
+	drawerOverlayed      	: true,
+
+	// Enable 'user joined the room' notifications
+	enableJoinNotification 	: true,
+
+	// Position of notifications
+	notificationPosition 	: 'right',
+
+	// Timeout for autohiding topbar and button control bar
+	hideTimeout          	: 3000,
+
+	// Max number of participant that will be visible in as speaker
+	lastN                	: 4,
+	mobileLastN          	: 1,
+
+	// Highest number of lastN the user can select manually in userinteface
+	maxLastN             	: 5,
+
+	/**
+	 * Supported browsers version in bowser satisfy format.
 	 * See more:
 	 * https://www.npmjs.com/package/bowser#filtering-browsers
 	 * Otherwise you got a unsupported browser page
@@ -26,49 +118,21 @@ var config =
 		'samsung internet for android' : '>=11.1.1.52'
 	},
 
-	// User settings in the settings panel
-	// Each option specifies a default value and
-	// a locked attribute let the UI know if it has to be shown 
-	userSettings:
-	{ 
-		videoResolution: { value: 'low', locked: true },
-		videoFrameRate: { value: 15, locked: true },
-		screenSharingResolution: { value: 'high', locked: true },
-		screenSharingFrameRate: { value: 5, locked: true },
-		audioEchoCancellation: { value: true, locked: true },
-		audioAutoGainControl: { value: true, locked: true },
-		audioNoiseSuppression: { value: true, locked: true },
-		audioVoiceActivityMute : { value: false, locked: true },
-		permanentTopBar : { value: true, locked: true },
-		hiddenControls : { value: false, locked: true },
-		buttonControlBar : { value: true, locked: true },
-		drawerOverlayed : { value: true, locked: true },
-		showNotifications : { value: true, locked: false }
+	/* ---------------- Advanced settings ---------------- */
+
+	// Default audio settings
+	defaultAudio :
+	{
+		sampleRate        : 48000,
+		channelCount      : 1,
+		volume            : 1.0,
+		autoGainControl   : true,
+		echoCancellation  : true,
+		noiseSuppression  : true,
+		voiceActivityMute : false,
+		sampleSize        : 16
 	},
-	/**
-	 * Resolutions:
-	 * 
-	 * low ~ 320x240
-	 * medium ~ 640x480
-	 * high ~ 1280x720
-	 * veryhigh ~ 1920x1080
-	 * ultra ~ 3840x2560
-	 * 
-	 **/
 
-	/**
-	 * Frame rates:
-	 * 
-	 * 1, 5, 10, 15, 20, 25, 30
-	 * 
-	 **/
-
-	defaultResolution             : 'medium',
-	defaultFrameRate              : 15,
-	defaultScreenResolution       : 'veryhigh',
-	defaultScreenSharingFrameRate : 5,
-  // Lock configured video settings for all users
-  lockVideoSettings             : false,
 	// Enable or disable simulcast for webcam video
 	simulcast                     : true,
 	// Enable or disable simulcast for screen sharing video
@@ -100,6 +164,7 @@ var config =
 		'chrome',
 		'opera'
 	],
+
 	// Socket.io request timeout
 	requestTimeout   : 20000,
 	requestRetries   : 3,
@@ -107,73 +172,24 @@ var config =
 	{
 		tcp : true
 	},
-	defaultAudio :
-	{
-		sampleRate        : 48000,
-		channelCount      : 1,
-		volume            : 1.0,
-		autoGainControl   : true,
-		echoCancellation  : true,
-		noiseSuppression  : true,
-		voiceActivityMute : false,
-		sampleSize        : 16
-	},
 
-	/**
-	 * Set max number participants in one room that join 
-	 * unmuted. Next participant will join automatically muted
-	 * Default value is 4
-	 * 
-	 * Set it to 0 to auto mute all, 
-	 * Set it to negative (-1) to never automatically auto mute
-	 * but use it with caution
-	 * full mesh audio strongly decrease room capacity! 
-	 */
-	autoMuteThreshold    : 4,
-	background           : 'images/background.jpg',
-	defaultLayout        : 'democratic', // democratic, filmstrip
-	// If true, will show media control buttons in separate
-	// control bar, not in the ME container.
-	buttonControlBar     : false,
-	// If false, will push videos away to make room for side
-	// drawer. If true, will overlay side drawer over videos
-	drawerOverlayed      : true,
-	// Enable 'user joined the room' notifications
-	enableJoinNotification : true,
-	// Position of notifications
-	notificationPosition : 'right',
-	// Timeout for autohiding topbar and button control bar
-	hideTimeout          : 3000,
-	// max number of participant that will be visible in 
-	// as speaker
-	lastN                : 4,
-	mobileLastN          : 1,
-	// Highest number of lastN the user can select manually in 
-	// userinteface
-	maxLastN             : 5,
-	// If truthy, users can NOT change number of speakers visible
-	lockLastN            : false,
-	// Enable "file sharing" tab
-	enableFileSharing : true,
-	// Add file and uncomment for adding logo to appbar
-	// logo       : 'images/logo.svg',
-	title                : 'Multiparty meeting',
-	// Service & Support URL
-	// if not set then not displayed on the about modals
-	supportUrl           : 'https://support.example.com',
-	// Privacy and dataprotection URL or path
-	// by default privacy/privacy.html
-	// that is a placeholder for your policies
-	//
-	// but an external url could be also used here	 
-	privacyUrl           : 'privacy/privacy.html',
+	/* ------------- Theme colors and fonts ------------- */
+
+	// Background image
+	// background          		  : 'images/background.jpg',
+
+	// Default theme
 	theme                :
 	{
 		palette :
 		{
 			primary :
 			{
-				main : '#313131'
+				main : '#094E98'
+			},
+			secondary : 
+			{
+				main : '#464E51'
 			}
 		},
 		overrides :
@@ -182,42 +198,21 @@ var config =
 			{
 				colorPrimary :
 				{
-					backgroundColor : '#313131'
+					// AppBar default color
+					backgroundColor : '#FFFFFF'
 				}
 			},
-			MuiFab :
-			{
-				primary :
-				{
-					backgroundColor : '#5F9B2D',
-					'&:hover'       :
-					{
-						backgroundColor : '#518029'
-					}
-				}
-			},
-			MuiBadge :
-			{
-				colorPrimary :
-				{
-					backgroundColor : '#5F9B2D',
-					'&:hover'       :
-					{
-						backgroundColor : '#518029'
-					}
-				}
-			}
 		},
 		typography :
 		{
 			useNextVariants : true,
 			fontFamily: [
-				'"Kumbh Sans"',
-				'Nunito',
-				'Roboto',
-				'"Helvetica Neue"',
-				'Arial',
-				'sans-serif'
+			'"Kumbh Sans"',
+			'Nunito',
+			'Roboto',
+			'"Helvetica Neue"',
+			'Arial',
+			'sans-serif'
 			].join(','),
 		}
 	}

@@ -99,12 +99,16 @@ const Settings = ({
 						defaultMessage : 'Appearence'
 					})}
 				/>
-				<Tab
-					label={intl.formatMessage({
-						id             : 'label.advanced',
-						defaultMessage : 'Advanced'
-					})}
-				/>
+				{!window.config.hideUserSetting.advancedMode &&
+					!window.config.hideUserSetting.notificationSound &&
+					!window.config.hideUserSetting.lastN &&
+					<Tab
+						label={intl.formatMessage({
+							id             : 'label.advanced',
+							defaultMessage : 'Advanced'
+						})}
+					/>
+				}
 			</Tabs>
 			{currentSettingsTab === 'media' && <MediaSettings />}
 			{currentSettingsTab === 'appearence' && <AppearenceSettings />}

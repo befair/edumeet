@@ -44,25 +44,29 @@ const AdvancedSettings = ({
 
 	return (
 		<React.Fragment>
-			<FormControlLabel
-				className={classnames(classes.setting, classes.switchLabel)}
-				control={<Switch checked={settings.advancedMode} onChange={onToggleAdvancedMode} value='advancedMode' />}
-				labelPlacement='start'
-				label={intl.formatMessage({
-					id             : 'settings.advancedMode',
-					defaultMessage : 'Advanced mode'
-				})}
-			/>
-			<FormControlLabel
-				className={classnames(classes.setting, classes.switchLabel)}
-				control={<Switch checked={settings.notificationSounds} onChange={onToggleNotificationSounds} value='notificationSounds' />}
-				labelPlacement='start'
-				label={intl.formatMessage({
-					id             : 'settings.notificationSounds',
-					defaultMessage : 'Notification sounds'
-				})}
-			/>
-			{ !window.config.lockLastN &&
+			{!window.config.hideUserSetting.advancedMode &&
+				<FormControlLabel
+					className={classnames(classes.setting, classes.switchLabel)}
+					control={<Switch checked={settings.advancedMode} onChange={onToggleAdvancedMode} value='advancedMode' />}
+					labelPlacement='start'
+					label={intl.formatMessage({
+						id             : 'settings.advancedMode',
+						defaultMessage : 'Advanced mode'
+					})}
+				/>
+			}
+			{!window.config.hideUserSetting.notificationSound &&
+				<FormControlLabel
+					className={classnames(classes.setting, classes.switchLabel)}
+					control={<Switch checked={settings.notificationSounds} onChange={onToggleNotificationSounds} value='notificationSounds' />}
+					labelPlacement='start'
+					label={intl.formatMessage({
+						id             : 'settings.notificationSounds',
+						defaultMessage : 'Notification sounds'
+					})}
+				/>
+			}
+			{!window.config.hideUserSetting.lastN &&
 				<form className={classes.setting} autoComplete='off'>
 					<FormControl className={classes.formControl}>
 						<Select

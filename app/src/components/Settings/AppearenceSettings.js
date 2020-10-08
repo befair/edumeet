@@ -34,7 +34,6 @@ const styles = (theme) =>
 	});
 
 const AppearenceSettings = ({
-	isMobile,
 	room,
 	settings,
 	onTogglePermanentTopBar,
@@ -97,7 +96,7 @@ const AppearenceSettings = ({
 					</FormHelperText>
 				</FormControl>
 			</form>
-			{ !window.config.userSettings.permanentTopBar.locked &&
+			{!window.config.hideUserSetting.permanentTopBar &&
 				<FormControlLabel
 					className={classnames(classes.setting, classes.switchLabel)}
 					control={
@@ -109,29 +108,29 @@ const AppearenceSettings = ({
 					})}
 				/>
 			}
-			{ !window.config.userSettings.hiddenControls.locked &&
-			<FormControlLabel
-				className={classnames(classes.setting, classes.switchLabel)}
-				control={<Switch checked={settings.hiddenControls} onChange={onToggleHiddenControls} value='hiddenControls' />}
-				labelPlacement='start'
-				label={intl.formatMessage({
-					id             : 'settings.hiddenControls',
-					defaultMessage : 'Hidden media controls'
-				})}
-			/>
+			{!window.config.hideUserSetting.hiddenControls &&
+				<FormControlLabel
+					className={classnames(classes.setting, classes.switchLabel)}
+					control={<Switch checked={settings.hiddenControls} onChange={onToggleHiddenControls} value='hiddenControls' />}
+					labelPlacement='start'
+					label={intl.formatMessage({
+						id             : 'settings.hiddenControls',
+						defaultMessage : 'Hidden media controls'
+					})}
+				/>
 			}
-			{ !window.config.userSettings.buttonControlBar.locked &&
-			<FormControlLabel
-				className={classnames(classes.setting, classes.switchLabel)}
-				control={<Switch checked={settings.buttonControlBar} onChange={onToggleButtonControlBar} value='buttonControlBar' />}
-				labelPlacement='start'
-				label={intl.formatMessage({
-					id             : 'settings.buttonControlBar',
-					defaultMessage : 'Separate media controls'
-				})}
-			/>
+			{!window.config.hideUserSetting.buttonControlBar &&
+				<FormControlLabel
+					className={classnames(classes.setting, classes.switchLabel)}
+					control={<Switch checked={settings.buttonControlBar} onChange={onToggleButtonControlBar} value='buttonControlBar' />}
+					labelPlacement='start'
+					label={intl.formatMessage({
+						id             : 'settings.buttonControlBar',
+						defaultMessage : 'Separate media controls'
+					})}
+				/>
 			}
-			{ !isMobile && !window.config.userSettings.drawerOverlayed.locked &&
+			{!window.config.hideUserSetting.drawerOverlayed &&
 				<FormControlLabel
 					className={classnames(classes.setting, classes.switchLabel)}
 					control={<Switch checked={settings.drawerOverlayed} onChange={onToggleDrawerOverlayed} value='drawerOverlayed' />}
@@ -142,15 +141,17 @@ const AppearenceSettings = ({
 					})}
 				/>
 			}
-			<FormControlLabel
-				className={classnames(classes.setting, classes.switchLabel)}
-				control={<Switch checked={settings.showNotifications} onChange={onToggleShowNotifications} value='showNotifications' />}
-				labelPlacement='start'
-				label={intl.formatMessage({
-					id             : 'settings.showNotifications',
-					defaultMessage : 'Show notifications'
-				})}
-			/>
+			{!window.config.hideUserSetting.showNotifications &&
+				<FormControlLabel
+					className={classnames(classes.setting, classes.switchLabel)}
+					control={<Switch checked={settings.showNotifications} onChange={onToggleShowNotifications} value='showNotifications' />}
+					labelPlacement='start'
+					label={intl.formatMessage({
+						id             : 'settings.showNotifications',
+						defaultMessage : 'Show notifications'
+					})}
+				/>
+			}
 		</React.Fragment>
 	);
 };
