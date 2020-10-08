@@ -243,6 +243,7 @@ const TopBar = (props) =>
 		openChat,
 		openFileshare,
 		unread,
+		newFiles,
 		canProduceExtraVideo,
 		canLock,
 		canPromote,
@@ -535,7 +536,7 @@ const TopBar = (props) =>
 								>
 									<Badge
 										color='primary'
-										badgeContent={unread}
+										badgeContent={newFiles}
 									>
 										<FileshareIcon />
 									</Badge>
@@ -913,6 +914,7 @@ const makeMapStateToProps = () =>
 			loginEnabled    : state.me.loginEnabled,
 			myPicture       : state.me.picture,
 			unread          : state.toolarea.unreadMessages,
+			newFiles        : state.toolarea.unreadFiles,
 			canProduceExtraVideo : hasExtraVideoPermission(state),
 			canLock              : hasLockPermission(state),
 			canPromote           : hasPromotionPermission(state)
