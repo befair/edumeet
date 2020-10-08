@@ -306,7 +306,7 @@ const JoinDialog = ({
 								roomClient.join({ roomId, joinVideo: false });
 							}}
 							variant='contained'
-							color='secondary'
+							color='primary'
 						>
 							<FormattedMessage
 								id='room.audioOnly'
@@ -319,7 +319,7 @@ const JoinDialog = ({
 								roomClient.join({ roomId, joinVideo: true });
 							}}
 							variant='contained'
-							color='secondary'
+							color='primary'
 						>
 							<FormattedMessage
 								id='room.audioVideo'

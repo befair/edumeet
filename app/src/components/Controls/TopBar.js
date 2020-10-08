@@ -25,6 +25,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
 import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
 import ExtensionIcon from '@material-ui/icons/Extension';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import FullScreenIcon from '@material-ui/icons/Fullscreen';
@@ -139,6 +140,11 @@ const styles = (theme) =>
 		green :
 		{
 			color : 'rgba(0, 153, 0, 1)'
+		},
+		red :
+		{
+			color 			: '#FFFFFF',
+			backgroundColor : '#B22222'
 		},
 		moreAction :
 		{
@@ -295,10 +301,10 @@ const TopBar = (props) =>
 					<Typography
 						className={classes.title}
 						variant='h6'
-						color='inherit'
+						color='secondary'
 						noWrap
 					>
-						{ window.config.title ? window.config.title : 'Multiparty meeting' }
+						{ window.config.title ? window.config.title : 'EduMeet' }
 					</Typography>
 					<div className={classes.grow} />
 					<div className={classes.sectionDesktop}>
@@ -316,7 +322,7 @@ const TopBar = (props) =>
 								}
 								aria-haspopup
 								onClick={(event) => handleMenuOpen(event, 'moreActions')}
-								color='inherit'
+								color='secondary'
 							>
 								<ExtensionIcon />
 							</IconButton>
@@ -329,7 +335,7 @@ const TopBar = (props) =>
 										defaultMessage : 'Enter fullscreen'
 									})}
 									className={classes.actionButton}
-									color='inherit'
+									color='secondary'
 									onClick={onFullscreen}
 								>
 									{ fullscreen ?
@@ -351,7 +357,7 @@ const TopBar = (props) =>
 									id             : 'tooltip.participants',
 									defaultMessage : 'Show participants'
 								})}
-								color='inherit'
+								color='secondary'
 								onClick={() => openUsersTab()}
 							>
 								<Badge
@@ -374,7 +380,7 @@ const TopBar = (props) =>
 									defaultMessage : 'Show settings'
 								})}
 								className={classes.actionButton}
-								color='inherit'
+								color='secondary'
 								onClick={() => setSettingsOpen(!room.settingsOpen)}
 							>
 								<SettingsIcon />
@@ -388,7 +394,7 @@ const TopBar = (props) =>
 										defaultMessage : 'Lock room'
 									})}
 									className={classes.actionButton}
-									color='inherit'
+									color='secondary'
 									disabled={!canLock}
 									onClick={() =>
 									{
@@ -424,7 +430,7 @@ const TopBar = (props) =>
 											defaultMessage : 'Show lobby'
 										})}
 										className={classes.actionButton}
-										color='inherit'
+										color='secondary'
 										disabled={!canPromote}
 										onClick={() => setLockDialogOpen(!room.lockDialogOpen)}
 									>
@@ -446,7 +452,7 @@ const TopBar = (props) =>
 										defaultMessage : 'Log in'
 									})}
 									className={classes.actionButton}
-									color='inherit'
+									color='secondary'
 									onClick={() =>
 									{
 										loggedIn ? roomClient.logout() : roomClient.login();
@@ -476,7 +482,7 @@ const TopBar = (props) =>
 										defaultMessage : 'Show lobby'
 									})}
 									className={classes.actionButton}
-									color='inherit'
+									color='secondary'
 									disabled={!canPromote}
 									onClick={() => setLockDialogOpen(!room.lockDialogOpen)}
 								>
@@ -501,7 +507,7 @@ const TopBar = (props) =>
 									id             : 'tooltip.chat',
 									defaultMessage : 'Show chat'
 								})}
-								color='inherit'
+								color='secondary'
 								onClick={() => { handleMenuClose(); openChat(); }}
 							>
 								<Badge
@@ -524,7 +530,7 @@ const TopBar = (props) =>
 										id             : 'label.shareFile',
 										defaultMessage : 'Share file'
 									})}
-									color='inherit'
+									color='secondary'
 									onClick={() => { handleMenuClose(); openFileshare(); }}
 								>
 									<Badge
@@ -547,7 +553,7 @@ const TopBar = (props) =>
 									id             : 'tooltip.participants',
 									defaultMessage : 'Show participants'
 								})}
-								color='inherit'
+								color='secondary'
 								onClick={() => { handleMenuClose(); openUsersTab(); }}
 							>
 								<Badge
@@ -561,7 +567,7 @@ const TopBar = (props) =>
 						<IconButton
 							aria-haspopup
 							onClick={handleMobileMenuOpen}
-							color='inherit'
+							color='secondary'
 						>
 							<MoreIcon />
 						</IconButton>
@@ -569,17 +575,25 @@ const TopBar = (props) =>
 					<div className={classes.divider} />
 					<Button
 						variant="contained"
-						color="secondary"
 						size="small"
 						startIcon={<CallEndIcon />}
-						className={classes.button}
+						className={
+							classnames(
+								classes.button,
+								classes.red
+							)
+						}
 						style={{ borderRadius: 60 }}
 						onClick={() => roomClient.close()}
 					>
-						<FormattedMessage
-							id='label.leave'
-							defaultMessage='Leave'
-						/>
+						<Box
+							fontWeight={700}
+						>
+							<FormattedMessage
+								id='label.leave'
+								defaultMessage='Leave'
+							/>
+						</Box>
 					</Button>
 				</Toolbar>
 			</AppBar>

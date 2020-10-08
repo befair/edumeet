@@ -36,6 +36,7 @@ const styles = (theme) =>
 			transitionProperty : 'opacity',
 			transitionDuration : '.15s',
 			backgroundColor    : 'var(--peer-video-bg-color)',
+			borderRadius	   : '30px',
 			'&.isMe'           :
 			{
 				transform : 'scaleX(-1)'

@@ -165,7 +165,7 @@ const ChooseRoom = ({
 						component={Link}
 						to={roomId}
 						variant='contained'
-						color='secondary'
+						color='primary'
 					>
 						<FormattedMessage
 							id='label.chooseRoomButton'

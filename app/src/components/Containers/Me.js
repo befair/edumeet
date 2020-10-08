@@ -28,17 +28,13 @@ const styles = (theme) =>
 		root :
 		{
 			flex               : '0 0 auto',
-			boxShadow          : 'var(--peer-shadow)',
-			border             : 'var(--peer-border)',
 			backgroundColor    : 'var(--peer-bg-color)',
 			backgroundImage    : 'var(--peer-empty-avatar)',
 			backgroundPosition : 'bottom',
 			backgroundSize     : 'auto 85%',
 			backgroundRepeat   : 'no-repeat',
-			'&.hover'          :
-			{
-				boxShadow : '0px 1px 3px rgba(0, 0, 0, 0.05) inset, 0px 0px 8px rgba(82, 168, 236, 0.9)'
-			},
+			boxShadow		   : '2px 10px 83px -6px rgba(84,84,84,1)',
+			borderRadius	   : '30px',
 			'&.active-speaker' :
 			{
 				// transition  : 'filter .2s',
