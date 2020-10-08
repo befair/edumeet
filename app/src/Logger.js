@@ -1,6 +1,6 @@
 import debug from 'debug';
 
-const APP_NAME = 'multiparty-meeting';
+const APP_NAME = 'edu-meet';
 
 export default class Logger
 {

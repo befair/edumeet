@@ -228,7 +228,7 @@ const JoinDialog = ({
 					}}
 					loggedIn={loggedIn}
 				>
-					{ window.config.title ? window.config.title : 'Multiparty meeting' }
+					{ window.config.title ? window.config.title : 'EduMeet' }
 					<hr />
 				</DialogTitle>
 				<DialogContent>

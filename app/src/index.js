@@ -207,7 +207,7 @@ function run()
 					/>
 				</RawIntlProvider>
 			</MuiThemeProvider>,
-			document.getElementById('multiparty-meeting')
+			document.getElementById('edu-meet')
 		);
 
 		return;
@@ -255,7 +255,7 @@ function run()
 				</RawIntlProvider>
 			</MuiThemeProvider>
 		</Provider>,
-		document.getElementById('multiparty-meeting')
+		document.getElementById('edu-meet')
 	);
 }
 
