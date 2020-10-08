@@ -11,7 +11,6 @@ import ParticipantList from './ParticipantList/ParticipantList';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 
-
 const styles = (theme) =>
 	({
 		root :
@@ -38,7 +37,7 @@ const MeetingDrawer = (props) =>
 	const {
 		currentToolTab,
 		closeDrawer,
-		classes,
+		classes
 	} = props;
 
 	return (

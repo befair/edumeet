@@ -39,7 +39,7 @@ const styles = (theme) =>
 			display              : 'flex',
 			width                : '100%',
 			height               : '100%',
-			backgroundImage		 : 'var(--background-image)',
+			backgroundImage	     : 'var(--background-image)',
 			backgroundAttachment : 'fixed',
 			backgroundPosition   : 'center',
 			backgroundSize       : 'cover',
@@ -171,7 +171,7 @@ class Room extends React.PureComponent
 			drawerOverlayed,
 			toolAreaOpen,
 			toggleToolArea,
-			classes,
+			classes
 		} = this.props;
 
 		const View =

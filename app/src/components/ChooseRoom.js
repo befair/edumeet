@@ -64,7 +64,7 @@ const styles = (theme) =>
 		},
 		loginButton :
 		{
-			borderRadius	: '30px',
+			borderRadius	: '30px'
 		},
 		largeAvatar :
 		{

@@ -51,8 +51,8 @@ const styles = (theme) =>
 	({
 		persistentDrawerOpen :
 		{
-			width                          	: 'calc(100% - 30vw)',
-			marginRight                     : '30vw',
+			width                          : 'calc(100% - 30vw)',
+			marginRight                    : '30vw',
 			[theme.breakpoints.down('lg')] :
 			{
 				width      	: 'calc(100% - 40vw)',
@@ -142,7 +142,7 @@ const styles = (theme) =>
 		},
 		red :
 		{
-			color 			: '#FFFFFF',
+			color           : '#FFFFFF',
 			backgroundColor : '#B22222'
 		},
 		moreAction :
@@ -518,7 +518,7 @@ const TopBar = (props) =>
 								</Badge>
 							</IconButton>
 						</Tooltip>
-						{ enableFileSharing ? 
+						{ enableFileSharing ?
 							<Tooltip
 								title={intl.formatMessage({
 									id             : 'label.shareFile',
@@ -541,7 +541,7 @@ const TopBar = (props) =>
 									</Badge>
 								</IconButton>
 							</Tooltip>
-						: null}
+							: null}
 						<Tooltip
 							title={intl.formatMessage({
 								id             : 'tooltip.participants',
@@ -574,8 +574,8 @@ const TopBar = (props) =>
 					</div>
 					<div className={classes.divider} />
 					<Button
-						variant="contained"
-						size="small"
+						variant='contained'
+						size='small'
 						startIcon={<CallEndIcon />}
 						className={classes.red}
 						style={{ borderRadius: 60 }}
@@ -879,9 +879,10 @@ TopBar.propTypes =
 	setLockDialogOpen    : PropTypes.func.isRequired,
 	toggleToolArea       : PropTypes.func.isRequired,
 	openUsersTab         : PropTypes.func.isRequired,
-	openChat	         : PropTypes.func.isRequired,
-	openFileshare	     : PropTypes.func.isRequired,
+	openChat             : PropTypes.func.isRequired,
+	openFileshare        : PropTypes.func.isRequired,
 	unread               : PropTypes.number.isRequired,
+	newFiles             : PropTypes.number.isRequired,
 	canProduceExtraVideo : PropTypes.bool.isRequired,
 	canLock              : PropTypes.bool.isRequired,
 	canPromote           : PropTypes.bool.isRequired,
@@ -902,18 +903,18 @@ const makeMapStateToProps = () =>
 
 	const mapStateToProps = (state) =>
 		({
-			room            : state.room,
-			isMobile        : state.me.browser.platform === 'mobile',
-			peersLength     : peersLengthSelector(state),
-			lobbyPeers      : lobbyPeersKeySelector(state),
-			permanentTopBar : state.settings.permanentTopBar,
-			drawerOverlayed : state.settings.drawerOverlayed,
-			toolAreaOpen    : state.toolarea.toolAreaOpen,
-			loggedIn        : state.me.loggedIn,
-			loginEnabled    : state.me.loginEnabled,
-			myPicture       : state.me.picture,
-			unread          : state.toolarea.unreadMessages,
-			newFiles        : state.toolarea.unreadFiles,
+			room                 : state.room,
+			isMobile             : state.me.browser.platform === 'mobile',
+			peersLength          : peersLengthSelector(state),
+			lobbyPeers           : lobbyPeersKeySelector(state),
+			permanentTopBar      : state.settings.permanentTopBar,
+			drawerOverlayed      : state.settings.drawerOverlayed,
+			toolAreaOpen         : state.toolarea.toolAreaOpen,
+			loggedIn             : state.me.loggedIn,
+			loginEnabled         : state.me.loginEnabled,
+			myPicture            : state.me.picture,
+			unread               : state.toolarea.unreadMessages,
+			newFiles             : state.toolarea.unreadFiles,
 			canProduceExtraVideo : hasExtraVideoPermission(state),
 			canLock              : hasLockPermission(state),
 			canPromote           : hasPromotionPermission(state)

@@ -97,7 +97,7 @@ const AppearenceSettings = ({
 					</FormHelperText>
 				</FormControl>
 			</form>
-			{ !window.config.userSettings.permanentTopBar.locked && 
+			{ !window.config.userSettings.permanentTopBar.locked &&
 				<FormControlLabel
 					className={classnames(classes.setting, classes.switchLabel)}
 					control={
@@ -109,7 +109,7 @@ const AppearenceSettings = ({
 					})}
 				/>
 			}
-			{ !window.config.userSettings.hiddenControls.locked && 
+			{ !window.config.userSettings.hiddenControls.locked &&
 			<FormControlLabel
 				className={classnames(classes.setting, classes.switchLabel)}
 				control={<Switch checked={settings.hiddenControls} onChange={onToggleHiddenControls} value='hiddenControls' />}
@@ -120,7 +120,7 @@ const AppearenceSettings = ({
 				})}
 			/>
 			}
-			{ !window.config.userSettings.buttonControlBar.locked && 
+			{ !window.config.userSettings.buttonControlBar.locked &&
 			<FormControlLabel
 				className={classnames(classes.setting, classes.switchLabel)}
 				control={<Switch checked={settings.buttonControlBar} onChange={onToggleButtonControlBar} value='buttonControlBar' />}
@@ -131,7 +131,7 @@ const AppearenceSettings = ({
 				})}
 			/>
 			}
-			{ !isMobile && !window.config.userSettings.drawerOverlayed.locked && 
+			{ !isMobile && !window.config.userSettings.drawerOverlayed.locked &&
 				<FormControlLabel
 					className={classnames(classes.setting, classes.switchLabel)}
 					control={<Switch checked={settings.drawerOverlayed} onChange={onToggleDrawerOverlayed} value='drawerOverlayed' />}

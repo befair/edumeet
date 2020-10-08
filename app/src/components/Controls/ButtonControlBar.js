@@ -57,25 +57,25 @@ const styles = (theme) =>
 		},
 		move :
 		{
-			right                           : '30vw',
-			top                            	: '50%',
-			transform                     	: 'translate(0%, -50%)',
-			flexDirection                  	: 'column',
-			justifyContent                 	: 'center',
-			alignItems                     	: 'center',
-			[theme.breakpoints.down('lg')] 	:
+			right                          : '30vw',
+			top                            : '50%',
+			transform                      : 'translate(0%, -50%)',
+			flexDirection                  : 'column',
+			justifyContent                 : 'center',
+			alignItems                     : 'center',
+			[theme.breakpoints.down('lg')] :
 			{
 				left : '40vw'
 			},
-			[theme.breakpoints.down('md')] 	:
+			[theme.breakpoints.down('md')] :
 			{
 				left : '50vw'
 			},
-			[theme.breakpoints.down('sm')] 	:
+			[theme.breakpoints.down('sm')] :
 			{
 				left : '70vw'
 			},
-			[theme.breakpoints.down('xs')] 	:
+			[theme.breakpoints.down('xs')] :
 			{
 				left : '90vw'
 			}

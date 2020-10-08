@@ -102,8 +102,8 @@ const FileSharing = (props) =>
 						variant='contained'
 						component='span'
 						className={classes.button}
-						color="primary"
-						size="large"
+						color='primary'
+						size='large'
 						disabled={!canShareFiles || !canShare}
 						startIcon={<UploadIcon />}
 					>
@@ -116,7 +116,7 @@ const FileSharing = (props) =>
 							variant='contained'
 							component='span'
 							className={classes.button}
-							color="primary"
+							color='primary'
 							disabled={!canShareFiles || !canShare}
 							startIcon={<UploadIcon />}
 						>

@@ -30,8 +30,8 @@ const styles = (theme) =>
 			backgroundPosition : 'bottom',
 			backgroundSize     : 'auto 85%',
 			backgroundRepeat   : 'no-repeat',
-			boxShadow		   : '2px 10px 83px -6px rgba(84,84,84,1)',
-			borderRadius	   : '30px',
+			boxShadow          : '2px 10px 83px -6px rgba(84,84,84,1)',
+			borderRadius       : '30px',
 			'&.active-speaker' :
 			{
 				// transition  : 'filter .2s',

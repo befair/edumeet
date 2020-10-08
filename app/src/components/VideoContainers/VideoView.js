@@ -36,7 +36,7 @@ const styles = (theme) =>
 			transitionProperty : 'opacity',
 			transitionDuration : '.15s',
 			backgroundColor    : 'var(--peer-video-bg-color)',
-			borderRadius	   : '30px',
+			borderRadius       : '30px',
 			'&.isMe'           :
 			{
 				transform : 'scaleX(-1)'
@@ -141,9 +141,9 @@ const styles = (theme) =>
 		{
 			fontSize        : 16,
 			fontWeight      : 600,
-			borderRadius	: '30px',
-			padding			: '10px',
-			color 			: '#464E51',
+			borderRadius    : '30px',
+			padding         : '10px',
+			color           : '#464E51',
 			border          : 'none',
 			backgroundColor : 'rgba(255, 255, 255, 0.50)'
 		},
@@ -151,9 +151,9 @@ const styles = (theme) =>
 		{
 			fontSize        : 16,
 			fontWeight      : 600,
-			borderRadius	: '30px',
-			padding			: '10px',
-			color 			: '#464E51',
+			borderRadius    : '30px',
+			padding         : '10px',
+			color           : '#464E51',
 			border          : 'none',
 			backgroundColor : 'rgba(255, 255, 255, 0.50)'
 		}

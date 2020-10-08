@@ -64,11 +64,11 @@ const styles = (theme) =>
 		},
 		loginButton :
 		{
-			position 		: 'absolute',
-			right    		: theme.spacing(2),
-			top      		: theme.spacing(2),
-			borderRadius	: '30px',
-			padding			: '7px'
+			position     : 'absolute',
+			right        : theme.spacing(2),
+			top          : theme.spacing(2),
+			borderRadius : '30px',
+			padding      : '7px'
 		},
 		largeIcon :
 		{
@@ -81,7 +81,7 @@ const styles = (theme) =>
 		},
 		joinButton :
 		{
-			borderRadius	: '30px',
+			borderRadius	: '30px'
 		},
 		blue :
 		{
@@ -95,7 +95,7 @@ const styles = (theme) =>
 
 const DialogTitle = withStyles(styles)((props) =>
 {
-	const { children, classes, myPicture, onLogin, loggedIn, ...other } = props;
+	const { children, classes, onLogin, ...other } = props;
 
 	return (
 		<MuiDialogTitle disableTypography className={classes.dialogTitle} {...other}>
@@ -126,7 +126,7 @@ const DialogContent = withStyles((theme) => ({
 	}
 }))(MuiDialogContent);
 
-const DialogActions = withStyles((theme) => ({}))(MuiDialogActions);
+const DialogActions = withStyles(() => ({}))(MuiDialogActions);
 
 const JoinDialog = ({
 	roomClient,
