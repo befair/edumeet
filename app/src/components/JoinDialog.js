@@ -20,6 +20,8 @@ import CookieConsent from 'react-cookie-consent';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
+import VideocamIcon from '@material-ui/icons/Videocam';
+import MicIcon from '@material-ui/icons/Mic';
 
 const styles = (theme) =>
 	({
@@ -80,9 +82,13 @@ const styles = (theme) =>
 			width  : 50,
 			height : 50
 		},
-		green :
+		loginButton :
 		{
-			color : 'rgba(0, 153, 0, 1)'
+			borderRadius	: '30px',
+		},
+		blue :
+		{
+			color : '#094E98'
 		},
 		red :
 		{
@@ -153,7 +159,7 @@ const DialogTitle = withStyles(styles)((props) =>
 							<Avatar src={myPicture} className={classes.largeAvatar} />
 							:
 							<AccountCircle
-								className={classnames(classes.largeIcon, loggedIn ? classes.green : null)}
+								className={classnames(classes.largeIcon, loggedIn ? classes.blue : null)}
 							/>
 						}
 					</IconButton>
@@ -170,13 +176,7 @@ const DialogContent = withStyles((theme) => ({
 	}
 }))(MuiDialogContent);
 
-const DialogActions = withStyles((theme) => ({
-	root :
-	{
-		margin  : 0,
-		padding : theme.spacing(1)
-	}
-}))(MuiDialogActions);
+const DialogActions = withStyles((theme) => ({}))(MuiDialogActions);
 
 const JoinDialog = ({
 	roomClient,
@@ -307,6 +307,8 @@ const JoinDialog = ({
 							}}
 							variant='contained'
 							color='primary'
+							className={classes.loginButton}
+							startIcon={<MicIcon />}
 						>
 							<FormattedMessage
 								id='room.audioOnly'
@@ -320,6 +322,8 @@ const JoinDialog = ({
 							}}
 							variant='contained'
 							color='primary'
+							className={classes.loginButton}
+							startIcon={<VideocamIcon />}
 						>
 							<FormattedMessage
 								id='room.audioVideo'
@@ -330,7 +334,7 @@ const JoinDialog = ({
 					:
 					<DialogContent>
 						<DialogContentText
-							className={classes.green}
+							className={classes.blue}
 							gutterBottom
 							variant='h6'
 							style={{ fontWeight: '600' }}

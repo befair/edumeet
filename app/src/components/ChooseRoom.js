@@ -69,14 +69,18 @@ const styles = (theme) =>
 		{
 			fontSize : '2em'
 		},
+		loginButton :
+		{
+			borderRadius	: '30px',
+		},
 		largeAvatar :
 		{
 			width  : 50,
 			height : 50
 		},
-		green :
+		blue :
 		{
-			color : 'rgba(0, 153, 0, 1)'
+			color : '#094E98'
 		}
 	});
 
@@ -165,6 +169,7 @@ const ChooseRoom = ({
 						component={Link}
 						to={roomId}
 						variant='contained'
+						className={classes.loginButton}
 						color='primary'
 					>
 						<FormattedMessage
