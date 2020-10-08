@@ -577,13 +577,9 @@ const TopBar = (props) =>
 						variant="contained"
 						size="small"
 						startIcon={<CallEndIcon />}
-						className={
-							classnames(
-								classes.button,
-								classes.red
-							)
-						}
+						className={classes.red}
 						style={{ borderRadius: 60 }}
+						color='secondary'
 						onClick={() => roomClient.close()}
 					>
 						<Box
