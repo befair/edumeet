@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import {
 	lobbyPeersKeySelector,
 	peersLengthSelector,
-	raisedHandsSelector,
 	makePermissionSelector
 } from '../Selectors';
 import { permissions } from '../../permissions';
@@ -436,7 +435,7 @@ const TopBar = (props) =>
 										onClick={() => setLockDialogOpen(!room.lockDialogOpen)}
 									>
 										<PulsingBadge
-											color='secondary'
+											color='primary'
 											badgeContent={lobbyPeers.length}
 										>
 											<SecurityIcon />
@@ -488,7 +487,7 @@ const TopBar = (props) =>
 									onClick={() => setLockDialogOpen(!room.lockDialogOpen)}
 								>
 									<PulsingBadge
-										color='secondary'
+										color='primary'
 										badgeContent={lobbyPeers.length}
 									>
 										<SecurityIcon />

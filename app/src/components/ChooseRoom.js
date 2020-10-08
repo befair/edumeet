@@ -58,13 +58,6 @@ const styles = (theme) =>
 			display       : 'block',
 			paddingBottom : '1vh'
 		},
-		loginButton :
-		{
-			position : 'absolute',
-			right    : theme.spacing(2),
-			top      : theme.spacing(2),
-			padding  : 0
-		},
 		largeIcon :
 		{
 			fontSize : '2em'

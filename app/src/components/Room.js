@@ -172,7 +172,6 @@ class Room extends React.PureComponent
 			toolAreaOpen,
 			toggleToolArea,
 			classes,
-			theme
 		} = this.props;
 
 		const View =
