@@ -912,8 +912,7 @@ const makeMapStateToProps = () =>
 			loggedIn        : state.me.loggedIn,
 			loginEnabled    : state.me.loginEnabled,
 			myPicture       : state.me.picture,
-			unread          : state.toolarea.unreadMessages +
-				state.toolarea.unreadFiles + raisedHandsSelector(state),
+			unread          : state.toolarea.unreadMessages,
 			canProduceExtraVideo : hasExtraVideoPermission(state),
 			canLock              : hasLockPermission(state),
 			canPromote           : hasPromotionPermission(state)

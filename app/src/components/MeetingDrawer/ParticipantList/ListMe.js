@@ -80,7 +80,7 @@ const ListMe = (props) =>
 						classnames(me.raisedHand ? classes.green : null, classes.buttons)
 					}
 					disabled={me.raisedHandInProgress}
-					color='primary'
+					color='secondary'
 					onClick={(e) =>
 					{
 						e.stopPropagation();
