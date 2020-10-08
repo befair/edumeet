@@ -139,24 +139,23 @@ const styles = (theme) =>
 		},
 		displayNameEdit :
 		{
-			fontSize        : 14,
-			fontWeight      : 400,
-			color           : 'rgba(255, 255, 255, 0.85)',
+			fontSize        : 16,
+			fontWeight      : 600,
+			borderRadius	: '30px',
+			padding			: '10px',
+			color 			: '#464E51',
 			border          : 'none',
-			borderBottom    : '1px solid #aeff00',
-			backgroundColor : 'transparent'
+			backgroundColor : 'rgba(255, 255, 255, 0.50)'
 		},
 		displayNameStatic :
 		{
-			userSelect : 'none',
-			cursor     : 'text',
-			fontSize   : 14,
-			fontWeight : 400,
-			color      : 'rgba(255, 255, 255, 0.85)',
-			'&:hover'  :
-			{
-				backgroundColor : 'rgb(174, 255, 0, 0.25)'
-			}
+			fontSize        : 16,
+			fontWeight      : 600,
+			borderRadius	: '30px',
+			padding			: '10px',
+			color 			: '#464E51',
+			border          : 'none',
+			backgroundColor : 'rgba(255, 255, 255, 0.50)'
 		}
 	});
 

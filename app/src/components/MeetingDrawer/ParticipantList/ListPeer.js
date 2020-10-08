@@ -141,7 +141,7 @@ const ListPeer = (props) =>
 							id             : 'tooltip.muteScreenSharing',
 							defaultMessage : 'Mute participant share'
 						})}
-						color={screenVisible ? 'primary' : 'secondary'}
+						color={'secondary'}
 						disabled={peer.peerScreenInProgress}
 						className={classes.buttons}
 						onClick={(e) =>
@@ -174,7 +174,7 @@ const ListPeer = (props) =>
 							id             : 'tooltip.muteParticipantVideo',
 							defaultMessage : 'Mute participant video'
 						})}
-						color={webcamEnabled ? 'primary' : 'secondary'}
+						color={'secondary'}
 						disabled={peer.peerVideoInProgress}
 						className={classes.buttons}
 						onClick={(e) =>
@@ -206,7 +206,7 @@ const ListPeer = (props) =>
 						id             : 'tooltip.muteParticipant',
 						defaultMessage : 'Mute participant'
 					})}
-					color={micEnabled ? 'primary' : 'secondary'}
+					color={'secondary'}
 					disabled={peer.peerAudioInProgress}
 					className={classes.buttons}
 					onClick={(e) =>
