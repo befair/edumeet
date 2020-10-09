@@ -29,8 +29,8 @@ const styles = (theme) =>
 				top            : '50%',
 				transform      : 'translate(0%, -50%)',
 				flexDirection  : 'column',
-				justifyContent : 'center',
-				alignItems     : 'center',
+				justifyContent : 'left',
+				alignItems     : 'left',
 				left           : theme.spacing(1)
 			},
 			[theme.breakpoints.down('sm')] :
@@ -57,28 +57,12 @@ const styles = (theme) =>
 		},
 		move :
 		{
-			right                          : '30vw',
-			top                            : '50%',
-			transform                      : 'translate(0%, -50%)',
-			flexDirection                  : 'column',
-			justifyContent                 : 'center',
-			alignItems                     : 'center',
-			[theme.breakpoints.down('lg')] :
-			{
-				left : '40vw'
-			},
-			[theme.breakpoints.down('md')] :
-			{
-				left : '50vw'
-			},
-			[theme.breakpoints.down('sm')] :
-			{
-				left : '70vw'
-			},
-			[theme.breakpoints.down('xs')] :
-			{
-				left : '90vw'
-			}
+			right          : '30vw',
+			top            : '50%',
+			transform      : 'translate(0%, -50%)',
+			flexDirection  : 'column',
+			justifyContent : 'left',
+			alignItems     : 'left'
 		}
 	});
 

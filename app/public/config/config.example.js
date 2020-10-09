@@ -50,16 +50,16 @@ var config =
 	// Determines whether a specific option should be visibile to the user
 	hideUserSetting:
 	{ 
-		videoSettings 			: true,
-		audioSettings			: true,
-		showNotifications 		: true,
-		notificationSound		: true,
-		permanentTopBar 		: true,
-		buttonControlBar 		: true,
-		hiddenControls 			: true,
-		drawerOverlayed 		: true,
-		advancedMode			: true,
-		lastN					: true
+		videoSettings           : true,
+		audioSettings           : true,
+		showNotifications       : true,
+		notificationSound       : true,
+		permanentTopBar         : true,
+		buttonControlBar        : true,
+		hiddenControls          : true,
+		drawerOverlayed         : true,
+		advancedMode            : true,
+		lastN                   : true
 	},
 
 	/**
