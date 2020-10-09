@@ -27,11 +27,14 @@ const styles = (theme) =>
 		},
 		button :
 		{
-			margin : theme.spacing(1)
+			margin       : theme.spacing(1),
+			borderRadius : '30px'
 		},
 		shareButtonsWrapper :
 		{
-			display : 'flex'
+			display 	   : 'flex',
+			justifyContent : 'center',
+			margin         : '10px'
 		}
 	});
 
