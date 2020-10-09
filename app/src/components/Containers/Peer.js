@@ -90,6 +90,7 @@ const styles = (theme) =>
 			opacity         : 0,
 			transition      : 'opacity 0.3s',
 			touchAction     : 'none',
+			borderRadius    : '30px',
 			'&.hover'       :
 			{
 				opacity : 1
@@ -106,6 +107,7 @@ const styles = (theme) =>
 			alignItems      : 'center',
 			padding         : theme.spacing(1),
 			zIndex          : 20,
+			borderRadius    : '30px',
 			'& p'           :
 			{
 				padding       : '6px 12px',
