@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { withRoomContext } from '../RoomContext';
+import classnames from 'classnames';
 import isElectron from 'is-electron';
 import * as settingsActions from '../actions/settingsActions';
 import PropTypes from 'prop-types';
 import { useIntl, FormattedMessage } from 'react-intl';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Tooltip from '@material-ui/core/Tooltip';
 import CookieConsent from 'react-cookie-consent';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
@@ -95,25 +99,72 @@ const styles = (theme) =>
 
 const DialogTitle = withStyles(styles)((props) =>
 {
-	const { children, classes, onLogin, ...other } = props;
+	const [ open, setOpen ] = useState(false);
+
+	const intl = useIntl();
+
+	useEffect(() =>
+	{
+		const openTimer = setTimeout(() => setOpen(true), 1000);
+		const closeTimer = setTimeout(() => setOpen(false), 4000);
+
+		return () =>
+		{
+			clearTimeout(openTimer);
+			clearTimeout(closeTimer);
+		};
+	}, []);
+
+	const { children, classes, myPicture, onLogin, loggedIn, ...other } = props;
+
+	const handleTooltipClose = () =>
+	{
+		setOpen(false);
+	};
+
+	const handleTooltipOpen = () =>
+	{
+		setOpen(true);
+	};
+
+	const loginTooltip = loggedIn ?
+		intl.formatMessage({
+			id             : 'tooltip.logout',
+			defaultMessage : 'Log out'
+		})
+		:
+		intl.formatMessage({
+			id             : 'tooltip.login',
+			defaultMessage : 'Log in'
+		});
 
 	return (
 		<MuiDialogTitle disableTypography className={classes.dialogTitle} {...other}>
 			{ window.config.logo && <img alt='Logo' className={classes.logo} src={window.config.logo} /> }
 			<Typography variant='h5'>{children}</Typography>
 			{ window.config.loginEnabled &&
-				<Button
-					variant='contained'
-					className={classes.loginButton}
-					color='primary'
-					onClick={onLogin}
-					startIcon={<AccountCircle />}
+				<Tooltip
+					onClose={handleTooltipClose}
+					onOpen={handleTooltipOpen}
+					open={open}
+					title={loginTooltip}
+					placement='left'
 				>
-					<FormattedMessage
-						id='tooltip.login'
-						defaultMessage='Login'
-					/>
-				</Button>
+					<IconButton
+						aria-label='Account'
+						className={classes.loginButton}
+						color='primary'
+						onClick={onLogin}
+					>
+						{ myPicture ?
+							<Avatar src={myPicture} className={classes.largeAvatar} />
+							:
+							<AccountCircle
+								className={classnames(classes.largeIcon, loggedIn ? classes.blue : null)}
+							/>
+						}
+					</IconButton>
+				</Tooltip>
 			}
 		</MuiDialogTitle>
 	);
