@@ -14,14 +14,14 @@ const styles = (theme) =>
 		root :
 		{
 			flex               : '0 0 auto',
-			boxShadow          : 'var(--peer-shadow)',
-			border             : 'var(--peer-border)',
 			touchAction        : 'none',
 			backgroundColor    : 'var(--peer-bg-color)',
 			backgroundImage    : 'var(--peer-empty-avatar)',
 			backgroundPosition : 'bottom',
 			backgroundSize     : 'auto 85%',
 			backgroundRepeat   : 'no-repeat',
+			boxShadow          : '2px 10px 83px -6px rgba(84,84,84,1)',
+			borderRadius       : '30px',
 			'&.webcam'         :
 			{
 				order : 2
