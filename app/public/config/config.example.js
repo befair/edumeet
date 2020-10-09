@@ -11,12 +11,6 @@ var config =
 	// Privacy and dataprotection URL or path
 	privacyUrl           : 'privacy/privacy.html',
 
-	// Enable authentication service
-	loginEnabled   		 : false,
-
-	// Enable "file sharing" tab
-	enableFileSharing	 : true,
-
 	// Port configuration
 	developmentPort 	 : 3443,
 	productionPort  	 : 443,
@@ -41,26 +35,14 @@ var config =
 	defaultScreenResolution       : 'veryhigh',
 	defaultScreenSharingFrameRate : 5,
 
-	// Lock configured video settings
-	lockVideoSettings             : false,
-
 	// Users layout default (democratic, filmstrip)
 	defaultLayout				  : 'democratic',
 
-	// Determines whether a specific option should be visibile to the user
-	hideUserSetting:
-	{ 
-		videoSettings           : true,
-		audioSettings           : true,
-		showNotifications       : true,
-		notificationSound       : true,
-		permanentTopBar         : true,
-		buttonControlBar        : true,
-		hiddenControls          : true,
-		drawerOverlayed         : true,
-		advancedMode            : true,
-		lastN                   : true
-	},
+	// Enable authentication service
+	loginEnabled   		 	: false,
+
+	// Enable "file sharing" tab
+	enableFileSharing	 	: false,
 
 	/**
 	 * Set max number participants in one room that join 
@@ -80,10 +62,10 @@ var config =
 
 	// If false, will push videos away to make room for side
 	// drawer. If true, will overlay side drawer over videos
-	drawerOverlayed      	: true,
+	drawerOverlayed      	: false,
 
 	// Enable 'user joined the room' notifications
-	enableJoinNotification 	: true,
+	enableJoinNotification 	: false,
 
 	// Position of notifications
 	notificationPosition 	: 'right',
@@ -97,6 +79,21 @@ var config =
 
 	// Highest number of lastN the user can select manually in userinteface
 	maxLastN             	: 5,
+
+	// Determines whether a specific option should be visibile to the user
+	hideUserSetting:
+	{ 
+		videoSettings           : true,
+		audioSettings           : true,
+		showNotifications       : true,
+		notificationSound       : true,
+		permanentTopBar         : true,
+		buttonControlBar        : true,
+		hiddenControls          : true,
+		drawerOverlayed         : true,
+		advancedMode            : true,
+		lastN                   : true
+	},
 
 	/**
 	 * Supported browsers version in bowser satisfy format.

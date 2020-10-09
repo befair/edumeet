@@ -82,9 +82,6 @@ const styles = (theme) => ({
 	}
 });
 
-const lockVideoSettings = window.config.lockVideoSettings !== undefined
-	? window.config.lockVideoSettings : false;
-
 const MediaSettings = ({
 	setEchoCancellation,
 	setAutoGainControl,
@@ -227,7 +224,6 @@ const MediaSettings = ({
 									name='Video resolution'
 									autoWidth
 									className={classes.selectEmpty}
-									disabled={lockVideoSettings}
 								>
 									{resolutions.map((resolution, index) =>
 									{
@@ -318,7 +314,6 @@ const MediaSettings = ({
 									name='Frame rate'
 									autoWidth
 									className={classes.selectEmpty}
-									disabled={lockVideoSettings}
 								>
 									{ [ 1, 5, 10, 15, 20, 25, 30 ].map((screenSharingFrameRate) =>
 									{
