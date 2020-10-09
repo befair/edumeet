@@ -27,7 +27,7 @@ const styles = (theme) =>
 			padding      : theme.spacing(1),
 			flexShrink   : 0,
 			borderRadius : '30px',
-			boxShadow    : '4px 8px 10px -6px rgba(84,84,84,1)',
+			boxShadow    : '4px 8px 10px -6px rgba(84,84,84,1)'
 		},
 		selfMessage :
 		{

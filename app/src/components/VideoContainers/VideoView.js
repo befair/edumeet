@@ -52,8 +52,8 @@ const styles = (theme) =>
 			},
 			'&.contain' :
 			{
-				objectFit       : 'contain',
-				borderRadius    : '0px'
+				objectFit    : 'contain',
+				borderRadius : '0px'
 			}
 		},
 		info :

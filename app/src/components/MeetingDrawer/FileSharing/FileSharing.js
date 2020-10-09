@@ -32,7 +32,7 @@ const styles = (theme) =>
 		},
 		shareButtonsWrapper :
 		{
-			display 	   : 'flex',
+			display        : 'flex',
 			justifyContent : 'center',
 			margin         : '10px'
 		}
