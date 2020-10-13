@@ -36,6 +36,7 @@ const styles = (theme) =>
 		{
 			width                          : '30vw',
 			padding                        : theme.spacing(2),
+			borderRadius                   : '30px',
 			[theme.breakpoints.down('lg')] :
 			{
 				width : '40vw'
