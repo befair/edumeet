@@ -541,7 +541,7 @@ async function runWebSocketServer()
 
 			const result = await getOrCreateRoom({ roomId });
 			const room = result[0];
-      const new_room = result[1];
+			const new_room = result[1];
 
 			let peer = peers.get(peerId);
 			let returning = false;
@@ -571,8 +571,8 @@ async function runWebSocketServer()
 				statusLog();
 			});
 
-      if (new_room && config.modOnCreate)
-        peer.authenticated = true;
+			if (new_room && config.modOnCreate)
+				peer.addRole(userRoles.MODERATOR);
 
 			if (
 				Boolean(socket.handshake.session.passport) &&
@@ -652,7 +652,7 @@ async function runMediasoupWorkers()
 async function getOrCreateRoom({ roomId })
 {
 	let room = rooms.get(roomId);
-  let created = false;
+	let created = false;
 
 	// If the Room does not exist create a new one.
 	if (!room)
@@ -663,7 +663,7 @@ async function getOrCreateRoom({ roomId })
 
 		room = await Room.create({ mediasoupWorkers, roomId });
 
-    created = true;
+		created = true;
 
 		rooms.set(roomId, room);
 
