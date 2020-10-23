@@ -62,6 +62,9 @@ const rooms = new Map();
 // Map of Peer instances indexed by peerId.
 const peers = new Map();
 
+// Map of authentication tokens for each room.
+const authTokens = new Map();
+
 // TLS server configuration.
 const tls =
 {
@@ -521,7 +524,7 @@ async function runWebSocketServer()
 	// Handle connections from clients.
 	io.on('connection', (socket) =>
 	{
-		const { roomId, peerId } = socket.handshake.query;
+		const { roomId, peerId, authToken } = socket.handshake.query;
 
 		if (!roomId || !peerId)
 		{
@@ -572,7 +575,14 @@ async function runWebSocketServer()
 			});
 
 			if (new_room && config.modOnCreate)
+			{
+				authTokens.set(roomId, authToken);
 				peer.addRole(userRoles.MODERATOR);
+			}
+			else if(authTokens.get(roomId) === authToken)
+			{
+				peer.addRole(userRoles.MODERATOR);
+			}
 
 			if (
 				Boolean(socket.handshake.session.passport) &&

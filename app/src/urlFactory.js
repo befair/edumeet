@@ -1,4 +1,4 @@
-export function getSignalingUrl(peerId, roomId)
+export function getSignalingUrl(peerId, roomId, authToken)
 {
 	const port =
 		process.env.NODE_ENV !== 'production' ?
@@ -6,7 +6,7 @@ export function getSignalingUrl(peerId, roomId)
 			:
 			window.config.productionPort;
 
-	const url = `wss://${window.location.hostname}:${port}/?peerId=${peerId}&roomId=${roomId}`;
+	const url = `wss://${window.location.hostname}:${port}/?peerId=${peerId}&roomId=${roomId}&authToken=${authToken}`;
 
 	return url;
 }

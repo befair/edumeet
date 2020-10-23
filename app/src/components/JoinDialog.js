@@ -184,6 +184,7 @@ const JoinDialog = ({
 	roomClient,
 	room,
 	roomId,
+	token,
 	displayName,
 	displayNameInProgress,
 	loggedIn,
@@ -305,7 +306,7 @@ const JoinDialog = ({
 						<Button
 							onClick={() =>
 							{
-								roomClient.join({ roomId, joinVideo: false });
+								roomClient.join({ roomId, token, joinVideo: false });
 							}}
 							variant='contained'
 							color='primary'
@@ -320,7 +321,7 @@ const JoinDialog = ({
 						<Button
 							onClick={() =>
 							{
-								roomClient.join({ roomId, joinVideo: true });
+								roomClient.join({ roomId, token, joinVideo: true });
 							}}
 							variant='contained'
 							color='primary'
@@ -398,6 +399,7 @@ JoinDialog.propTypes =
 	roomClient            : PropTypes.any.isRequired,
 	room                  : PropTypes.object.isRequired,
 	roomId                : PropTypes.string.isRequired,
+	token                 : PropTypes.string,
 	displayName           : PropTypes.string.isRequired,
 	displayNameInProgress : PropTypes.bool.isRequired,
 	loginEnabled          : PropTypes.bool.isRequired,

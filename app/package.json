@@ -23,6 +23,7 @@
 		"mediasoup-client": "^3.6.5",
 		"notistack": "^0.9.5",
 		"prop-types": "^15.7.2",
+		"qs": "^6.9.4",
 		"random-string": "^0.2.0",
 		"react": "^16.10.2",
 		"react-cookie-consent": "^2.5.0",

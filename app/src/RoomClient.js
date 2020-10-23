@@ -2030,15 +2030,17 @@ export default class RoomClient
 		));
 	}
 
-	async join({ roomId, joinVideo })
+	async join({ roomId, token, joinVideo })
 	{
 		await this._loadDynamicImports();
 
 		this._roomId = roomId;
 
+		this._token = token;
+
 		store.dispatch(roomActions.setRoomName(roomId));
 
-		this._signalingUrl = getSignalingUrl(this._peerId, roomId);
+		this._signalingUrl = getSignalingUrl(this._peerId, roomId, this._token);
 
 		this._screenSharing = ScreenShare.create(this._device);
 
