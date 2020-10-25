@@ -1,6 +1,6 @@
 import Logger from './Logger';
 import hark from 'hark';
-import { getSignalingUrl } from './urlFactory';
+import { getPrivilegedUrl, getSignalingUrl } from './urlFactory';
 import { SocketTimeoutError } from './utils';
 import * as requestActions from './actions/requestActions';
 import * as meActions from './actions/meActions';
@@ -2053,6 +2053,11 @@ export default class RoomClient
 		this._signalingSocket.on('connect', () =>
 		{
 			logger.debug('signaling Peer "connect" event');
+		});
+
+		this._signalingSocket.on(`auth-${this._peerId}`, (token) =>
+		{
+			alert(getPrivilegedUrl(roomId, token));
 		});
 
 		this._signalingSocket.on('disconnect', (reason) =>

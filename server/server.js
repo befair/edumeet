@@ -578,10 +578,12 @@ async function runWebSocketServer()
 			{
 				authTokens.set(roomId, authToken);
 				peer.addRole(userRoles.MODERATOR);
+				socket.emit(`auth-${peerId}`, authToken);
 			}
-			else if(authTokens.get(roomId) === authToken)
+			else if(authTokens.get(roomId) === authToken && config.shareModPrivilege)
 			{
 				peer.addRole(userRoles.MODERATOR);
+				socket.emit(`auth-${peerId}`, authToken);
 			}
 
 			if (
