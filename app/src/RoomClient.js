@@ -2058,9 +2058,9 @@ export default class RoomClient
 			logger.debug('signaling Peer "connect" event');
 		});
 
-		this._signalingSocket.on(`auth-${this._peerId}`, (token) =>
+		this._signalingSocket.on(`auth-${this._peerId}`, (authToken) =>
 		{
-			this._shareModLink = getPrivilegedUrl(roomId, token);
+			this._shareModLink = getPrivilegedUrl(roomId, authToken);
 		});
 
 		this._signalingSocket.on('disconnect', (reason) =>

@@ -7,7 +7,6 @@ import JoinDialog from './JoinDialog';
 import LoadingView from './LoadingView';
 import { ReactLazyPreload } from './ReactLazyPreload';
 
-
 const Room = ReactLazyPreload(() => import(/* webpackChunkName: "room" */ './Room'));
 
 const App = (props) =>
@@ -18,7 +17,8 @@ const App = (props) =>
 
 	const id = useParams().id.toLowerCase();
 	const token = qs.parse(props.location.search, { ignoreQueryPrefix: true })['token']
-			      || Math.random().toString(36).substr(2,10);
+				|| Math.random().toString(36)
+					.substr(2, 10);
 
 	useEffect(() =>
 	{

@@ -544,7 +544,7 @@ async function runWebSocketServer()
 
 			const result = await getOrCreateRoom({ roomId });
 			const room = result[0];
-			const new_room = result[1];
+			const newRoom = result[1];
 
 			let peer = peers.get(peerId);
 			let returning = false;
@@ -574,13 +574,13 @@ async function runWebSocketServer()
 				statusLog();
 			});
 
-			if (new_room && config.modOnCreate)
+			if (newRoom && config.modOnCreate)
 			{
 				authTokens.set(roomId, authToken);
 				peer.addRole(userRoles.MODERATOR);
 				socket.emit(`auth-${peerId}`, authToken);
 			}
-			else if(authTokens.get(roomId) === authToken && config.shareModPrivilege)
+			else if (authTokens.get(roomId) === authToken && config.shareModPrivilege)
 			{
 				peer.addRole(userRoles.MODERATOR);
 				socket.emit(`auth-${peerId}`, authToken);
@@ -689,7 +689,7 @@ async function getOrCreateRoom({ roomId })
 		});
 	}
 
-	return [room, created];
+	return [ room, created ];
 }
 
 run();

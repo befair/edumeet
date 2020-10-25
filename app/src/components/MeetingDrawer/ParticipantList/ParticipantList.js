@@ -97,7 +97,7 @@ class ParticipantList extends React.PureComponent
 							/>
 						</li>
 						<ListModerator />
-					</ul> 
+					</ul>
 				}
 				{ isModerator &&
 					<ul className={classes.list}>
@@ -109,11 +109,13 @@ class ParticipantList extends React.PureComponent
 						</li>
 						<li>
 							<Button
-								aria-label="Show/Hide"
+								aria-label='Show/Hide'
 								variant='contained'
 								color='secondary'
-								onClick={() => {
-									let el = document.getElementById('auth');
+								onClick={() =>
+								{
+									const el = document.getElementById('auth');
+
 									el.hidden = !el.hidden;
 								}}
 							>
@@ -122,7 +124,7 @@ class ParticipantList extends React.PureComponent
 									defaultMessage='Show/Hide'
 								/>
 							</Button>
-							<div id="auth" hidden>
+							<div id='auth' hidden>
 								<TextField
 									value={roomClient._shareModLink}
 									variant='outlined'
@@ -132,7 +134,7 @@ class ParticipantList extends React.PureComponent
 								/>
 							</div>
 						</li>
-					</ul> 
+					</ul>
 				}
 				<ul className={classes.list}>
 					<li className={classes.listheader}>
