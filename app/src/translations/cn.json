@@ -64,6 +64,8 @@
 	"room.about": null,
 	"room.shortcutKeys": null,
 	"room.browsePeersSpotlight": null,
+	"room.privilegedjoinlink": null,
+	"room.showhide": null,
 	
 	"me.mutedPTT": null,
 

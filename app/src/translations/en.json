@@ -65,6 +65,8 @@
 	"room.shortcutKeys": "Shortcut Keys",
 	"room.browsePeersSpotlight": "Browse participants into Spotlight",
 	"room.stopAllScreenSharing": "Stop all screen sharing",
+	"room.privilegedjoinlink": "Link to join as moderator",
+	"room.showhide": "Show/Hide",
 
 	"me.mutedPTT": "You are muted, hold down SPACE-BAR to talk",
 

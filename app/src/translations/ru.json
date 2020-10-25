@@ -65,6 +65,8 @@
 	"room.shortcutKeys": "Горячие клавиши",
 	"room.browsePeersSpotlight": "Просматривать активных участников",
 	"room.stopAllScreenSharing": "Прекратить все совместные использования экрана",
+	"room.privilegedjoinlink": null,
+	"room.showhide": null,
 
 	"me.mutedPTT": "Вы отключены, удерживайте ПРОБЕЛ, чтобы говорить",
 

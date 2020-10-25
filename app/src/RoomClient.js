@@ -199,6 +199,9 @@ export default class RoomClient
 		// The room ID
 		this._roomId = null;
 
+		// Link to share moderator privilege
+		this._shareModLink = null;
+
 		// mediasoup-client Device instance.
 		// @type {mediasoupClient.Device}
 		this._mediasoupDevice = null;
@@ -2057,7 +2060,7 @@ export default class RoomClient
 
 		this._signalingSocket.on(`auth-${this._peerId}`, (token) =>
 		{
-			alert(getPrivilegedUrl(roomId, token));
+			this._shareModLink = getPrivilegedUrl(roomId, token);
 		});
 
 		this._signalingSocket.on('disconnect', (reason) =>
@@ -4002,4 +4005,8 @@ export default class RoomClient
 		}
 	}
 
+	getShareModLink()
+	{
+		return this._shareModLink;
+	}
 }

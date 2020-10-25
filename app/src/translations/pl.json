@@ -65,6 +65,8 @@
 	"room.shortcutKeys": "Skróty klawiaturowe",
 	"room.browsePeersSpotlight": null,
 	"room.stopAllScreenSharing": null,
+	"room.privilegedjoinlink": null,
+	"room.showhide": null,
 
 	"me.mutedPTT": "Masz wyciszony mikrofon, przytrzymaj spację aby mówić",
 

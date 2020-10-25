@@ -15,6 +15,8 @@ import ListPeer from './ListPeer';
 import ListMe from './ListMe';
 import ListModerator from './ListModerator';
 import Volume from '../../Containers/Volume';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 const styles = (theme) =>
 	({
@@ -95,7 +97,42 @@ class ParticipantList extends React.PureComponent
 							/>
 						</li>
 						<ListModerator />
-					</ul>
+					</ul> 
+				}
+				{ isModerator &&
+					<ul className={classes.list}>
+						<li className={classes.listheader}>
+							<FormattedMessage
+								id='room.privilegedjoinlink'
+								defaultMessage='Link to join as moderator'
+							/>
+						</li>
+						<li>
+							<Button
+								aria-label="Show/Hide"
+								variant='contained'
+								color='secondary'
+								onClick={() => {
+									let el = document.getElementById('auth');
+									el.hidden = !el.hidden;
+								}}
+							>
+								<FormattedMessage
+									id='room.showhide'
+									defaultMessage='Show/Hide'
+								/>
+							</Button>
+							<div id="auth" hidden>
+								<TextField
+									value={roomClient._shareModLink}
+									variant='outlined'
+									margin='normal'
+									disabled
+									fullWidth
+								/>
+							</div>
+						</li>
+					</ul> 
 				}
 				<ul className={classes.list}>
 					<li className={classes.listheader}>
