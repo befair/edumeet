@@ -67,6 +67,7 @@
 	"room.stopAllScreenSharing": "Stoppe alle Bildschirmfreigaben",
     "room.privilegedjoinlink": null,
 	"room.showhide": null,
+	"room.joinlink": null,
 
 	"me.mutedPTT": "Du bist stummgeschaltet. Halte die LEERTASTE um zu sprechen",
 

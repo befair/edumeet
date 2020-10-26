@@ -67,6 +67,7 @@
 	"room.stopAllScreenSharing": "Бүкіл экрандарды бөлісуді тоқтату",
 	"room.privilegedjoinlink": null,
 	"room.showhide": null,
+	"room.joinlink": null,
 
 	"me.mutedPTT": "Сіз дыбыссызсыз, сөйлесу үшін БОС ОРЫН пернесін ұстап тұрыңыз",
 

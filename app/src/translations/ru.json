@@ -67,6 +67,7 @@
 	"room.stopAllScreenSharing": "Прекратить все совместные использования экрана",
 	"room.privilegedjoinlink": null,
 	"room.showhide": null,
+	"room.joinlink": null,
 
 	"me.mutedPTT": "Вы отключены, удерживайте ПРОБЕЛ, чтобы говорить",
 

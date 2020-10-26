@@ -66,6 +66,7 @@
 	"room.stopAllScreenSharing": null,
 	"room.privilegedjoinlink": null,
 	"room.showhide": null,
+	"room.joinlink": null,
 
 	"me.mutedPTT": "Jūs esat noklusināts. Turiet taustiņu SPACE-BAR, lai runātu",
 

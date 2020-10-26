@@ -67,6 +67,7 @@
 	"room.stopAllScreenSharing": null,
 	"room.privilegedjoinlink": null,
 	"room.showhide": null,
+	"room.joinlink": null,
 
 	"me.mutedPTT": "Masz wyciszony mikrofon, przytrzymaj spację aby mówić",
 

@@ -1,6 +1,6 @@
 import Logger from './Logger';
 import hark from 'hark';
-import { getPrivilegedUrl, getSignalingUrl } from './urlFactory';
+import { getPrivilegedUrl, getRoomUrl, getSignalingUrl } from './urlFactory';
 import { SocketTimeoutError } from './utils';
 import * as requestActions from './actions/requestActions';
 import * as meActions from './actions/meActions';
@@ -198,6 +198,9 @@ export default class RoomClient
 
 		// The room ID
 		this._roomId = null;
+
+		// Link to enter the room
+		this._roomLink = null;
 
 		// Link to share moderator privilege
 		this._shareModLink = null;
@@ -2045,6 +2048,8 @@ export default class RoomClient
 
 		this._signalingUrl = getSignalingUrl(this._peerId, roomId, this._token);
 
+		this._roomLink = getRoomUrl(roomId);
+
 		this._screenSharing = ScreenShare.create(this._device);
 
 		this._signalingSocket = io(this._signalingUrl);
@@ -2060,7 +2065,6 @@ export default class RoomClient
 
 		this._signalingSocket.on(`auth-${this._peerId}`, () =>
 		{
-			
 			this._shareModLink = getPrivilegedUrl(roomId, this._token);
 		});
 
@@ -4004,10 +4008,5 @@ export default class RoomClient
 		{
 			logger.error('_updateAudioOutputDevices() [error:"%o"]', error);
 		}
-	}
-
-	getShareModLink()
-	{
-		return this._shareModLink;
 	}
 }

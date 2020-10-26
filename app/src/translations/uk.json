@@ -67,6 +67,7 @@
 	"room.stopAllScreenSharing": "Зупинити спільне використання екрану",
 	"room.privilegedjoinlink": null,
 	"room.showhide": null,
+	"room.joinlink": null,
 
 	"me.mutedPTT":" У вас вимкнено звук, утримуйте клавішу SPACE-BAR (пробіл), щоб говорити",
 	"roles.gotRole": "Ви отримали роль {role}",

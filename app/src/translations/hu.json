@@ -67,6 +67,7 @@
 	"room.stopAllScreenSharing": "Összes képernyőmegosztás leállítása",
 	"room.privilegedjoinlink": null,
 	"room.showhide": null,
+	"room.joinlink": null,
 
 	"me.mutedPTT": "Némítva vagy, ha beszélnél nyomd le a SZÓKÖZ billentyűt",
 

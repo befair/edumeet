@@ -65,8 +65,9 @@
 	"room.shortcutKeys": "Scorciatoie da tastiera",
 	"room.browsePeersSpotlight": null,
 	"room.stopAllScreenSharing": null,
-	"room.privilegedjoinlink": "Link d'invito come moderatore",
+	"room.privilegedjoinlink": "Link invito come moderatore",
 	"room.showhide": "Mostra/Nascondi",
+	"room.joinlink": "Link invito come ospite",
 	
 	"me.mutedPTT": "Sei mutato, tieni premuto SPAZIO per parlare",
 

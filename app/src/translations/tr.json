@@ -67,6 +67,7 @@
 	"room.stopAllScreenSharing": "Tüm ekran paylaşımlarını durdur",
 	"room.privilegedjoinlink": null,
 	"room.showhide": null,
+	"room.joinlink": null,
 
 	"me.mutedPTT": "Sesiniz kapalı, konuşmak için SPACE tuşuna basılı tutun",
 

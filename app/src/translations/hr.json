@@ -67,6 +67,7 @@
 	"room.stopAllScreenSharing": null,
 	"room.privilegedjoinlink": null,
 	"room.showhide": null,
+	"room.joinlink": null,
 
 	"me.mutedPTT": "Utišani ste, pritisnite i držite SPACE tipku za razgovor",
 

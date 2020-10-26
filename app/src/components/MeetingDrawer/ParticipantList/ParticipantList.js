@@ -139,6 +139,23 @@ class ParticipantList extends React.PureComponent
 				<ul className={classes.list}>
 					<li className={classes.listheader}>
 						<FormattedMessage
+							id='room.joinlink'
+							defaultMessage='Link to join'
+						/>
+					</li>
+					<li>
+						<TextField
+							value={roomClient._roomLink}
+							variant='outlined'
+							margin='normal'
+							disabled
+							fullWidth
+						/>
+					</li>
+				</ul>
+				<ul className={classes.list}>
+					<li className={classes.listheader}>
+						<FormattedMessage
 							id='room.me'
 							defaultMessage='Me'
 						/>

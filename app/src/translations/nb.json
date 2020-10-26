@@ -67,6 +67,7 @@
 	"room.stopAllScreenSharing": "Stopp all skjermdeling",
 	"room.privilegedjoinlink": null,
 	"room.showhide": null,
+	"room.joinlink": null,
 
 	"me.mutedPTT": "Du er dempet, hold nede SPACE for å snakke",
 
