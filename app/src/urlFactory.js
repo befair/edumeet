@@ -11,7 +11,7 @@ export function getSignalingUrl(peerId, roomId, authToken)
 	return url;
 }
 
-export function getPrivilegedUrl(roomId, authToken)
+export function getRoomUrl(roomId)
 {
 	const port =
 		process.env.NODE_ENV !== 'production' ?
@@ -19,7 +19,16 @@ export function getPrivilegedUrl(roomId, authToken)
 			:
 			window.config.productionPort;
 
-	const url = `https://${window.location.hostname}:${port}/${roomId}?token=${authToken}`;
+	const url =
+		(port != '443' && port != '80') ?
+			`https://${window.location.hostname}:${port}/${roomId}`
+			:
+			`https://${window.location.hostname}/${roomId}`;
 
 	return url;
+}
+
+export function getPrivilegedUrl(roomId, authToken)
+{
+	return getRoomUrl(roomId) + `?token=${authToken}`;
 }
