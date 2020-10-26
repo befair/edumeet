@@ -20,7 +20,7 @@ export function getRoomUrl(roomId)
 			window.config.productionPort;
 
 	const url =
-		(port != '443' && port != '80') ?
+		(port !== 443 && port !== 80) ?
 			`https://${window.location.hostname}:${port}/${roomId}`
 			:
 			`https://${window.location.hostname}/${roomId}`;
@@ -30,5 +30,5 @@ export function getRoomUrl(roomId)
 
 export function getPrivilegedUrl(roomId, authToken)
 {
-	return getRoomUrl(roomId) + `?token=${authToken}`;
+	return `${getRoomUrl(roomId)}?token=${authToken}`;
 }

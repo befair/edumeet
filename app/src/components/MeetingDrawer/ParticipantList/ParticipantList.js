@@ -16,7 +16,9 @@ import ListMe from './ListMe';
 import ListModerator from './ListModerator';
 import Volume from '../../Containers/Volume';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 const styles = (theme) =>
 	({
@@ -125,12 +127,25 @@ class ParticipantList extends React.PureComponent
 								/>
 							</Button>
 							<div id='auth' hidden>
-								<TextField
+								<OutlinedInput
+									id='modLink'
 									value={roomClient._shareModLink}
 									variant='outlined'
 									margin='normal'
 									disabled
 									fullWidth
+									endAdornment={
+										<InputAdornment position='end'>
+											<FileCopyIcon
+												onClick={() =>
+												{
+													const el = document.getElementById('modLink');
+
+													navigator.clipboard.writeText(el.value);
+												}}
+											/>
+										</InputAdornment>
+									}
 								/>
 							</div>
 						</li>
@@ -144,12 +159,25 @@ class ParticipantList extends React.PureComponent
 						/>
 					</li>
 					<li>
-						<TextField
+						<OutlinedInput
+							id='roomLink'
 							value={roomClient._roomLink}
 							variant='outlined'
 							margin='normal'
 							disabled
 							fullWidth
+							endAdornment={
+								<InputAdornment position='end'>
+									<FileCopyIcon
+										onClick={() =>
+										{
+											const el = document.getElementById('roomLink');
+
+											navigator.clipboard.writeText(el.value);
+										}}
+									/>
+								</InputAdornment>
+							}
 						/>
 					</li>
 				</ul>
