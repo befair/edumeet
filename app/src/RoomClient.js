@@ -15,6 +15,7 @@ import * as consumerActions from './actions/consumerActions';
 import * as producerActions from './actions/producerActions';
 import * as notificationActions from './actions/notificationActions';
 import * as transportActions from './actions/transportActions';
+import { createBrowserHistory } from 'history';
 
 let createTorrent;
 
@@ -2066,6 +2067,11 @@ export default class RoomClient
 		this._signalingSocket.on(`auth-${this._peerId}`, () =>
 		{
 			this._shareModLink = getPrivilegedUrl(roomId, this._token);
+
+			// Remove token from URL
+			const history = createBrowserHistory();
+
+			history.replace(roomId);
 		});
 
 		this._signalingSocket.on('disconnect', (reason) =>
