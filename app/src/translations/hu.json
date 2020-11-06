@@ -59,6 +59,7 @@
 	"room.raisedHand": "{displayName} jelentkezik",
 	"room.loweredHand": "{displayName} leeresztette a kezét",
 	"room.extraVideo": "Kiegészítő videó",
+	"room.extraVideoDuplication": "Duplikációs hiba",
 	"room.overRoomLimit": "A konferenciaszoba betelt..",
 	"room.help": "Segítség",
 	"room.about": "Névjegy",
@@ -68,6 +69,8 @@
 	"room.privilegedjoinlink": null,
 	"room.showhide": null,
 	"room.joinlink": null,
+	"room.hideSelfView": "Saját kamerakép elrejtése",
+	"room.showSelfView": "Saját kamerakép megjelenítése",
 
 	"me.mutedPTT": "Némítva vagy, ha beszélnél nyomd le a SZÓKÖZ billentyűt",
 
@@ -87,11 +90,23 @@
 	"tooltip.kickParticipant": "Résztvevő kirúgása",
 	"tooltip.muteParticipant": "Résztvevő némítása",
 	"tooltip.muteParticipantVideo": "Résztvevő videóstreamének némítása",
+	"tooltip.inSpotlight": null,
+	"tooltip.isSpeaker": null,
 	"tooltip.raisedHand": "Jelentkezés",
 	"tooltip.muteScreenSharing": "Képernyőmegosztás szüneteltetése",
+	"tooltip.unMuteScreenSharing": null,
+	"tooltip.unMuteParticipantVideo": null,
+	"tooltip.unMuteParticipant": null,
+	"tooltip.addParticipantToSpotlight": null,
+	"tooltip.removeParticipantFromSpotlight": null,
 	"tooltip.muteParticipantAudioModerator": "Résztvevő hangjának némítása mindenkinél",
 	"tooltip.muteParticipantVideoModerator": "Résztvevő videójának némítása mindenkinél",
 	"tooltip.muteScreenSharingModerator": "Résztvevő képernyőmegosztásának leállítása mindenkinél",
+	"label.username": null,
+	"label.password": null,
+	"label.login": null,
+	"label.logout": null,
+	"label.join": null,
 
 	"label.roomName": "Konferencia",
 	"label.chooseRoomButton": "Tovább",
@@ -119,7 +134,7 @@
 	"label.media": "Média",
 	"label.appearance": "Megjelenés",
 	"label.advanced": "Részletek",
-	"label.addVideo": "Videó hozzáadása",
+	"label.addVideo": "Új videó bemenet hozzáadása",
 	"label.promoteAllPeers": "Mindenkit beengedek",
 	"label.moreActions": "További műveletek",
 	"label.version": "Verzió",
@@ -142,6 +157,8 @@
 	"settings.selectRoomLayout": "Válaszd ki a konferencia képkiosztását",
 	"settings.advancedMode": "Részletes információk",
 	"settings.permanentTopBar": "Állandó felső sáv",
+	"settings.aspectRatio": null,
+	"settings.selectAspectRatio": null,
 	"settings.lastn": "A látható videók száma",
 	"settings.hiddenControls": "Média Gombok automatikus elrejtése",
 	"settings.notificationSounds": "Értesítések hangjelzéssel",
@@ -155,6 +172,7 @@
 	"settings.drawerOverlayed": "Oldalsáv a tartalom felett",
 	"settings.voiceActivatedUnmute": "Beszéd aktivált mikrofon némítás",
 	"settings.noiseThreshold": "Zajszint",
+	"settings.mirrorOwnVideo": null,
 
 	"filesharing.saveFileError": "A file-t nem sikerült elmenteni",
 	"filesharing.startingFileShare": "Fájl megosztása",
@@ -169,11 +187,13 @@
 
 	"devices.devicesChanged": "Az eszközei megváltoztak, konfiguráld őket be a beállítások menüben",
 
+	"devices.enableOnlyMicrophone": null,
 	"device.audioUnsupported": "A hang nem támogatott",
 	"device.activateAudio": "Hang aktiválása",
 	"device.muteAudio": "Hang némítása",
 	"device.unMuteAudio": "Hang némítás kikapcsolása",
 
+	"devices.enableOnlyCamera": null,
 	"device.videoUnsupported": "A videó nem támogatott",
 	"device.startVideo": "Videó indítása",
 	"device.stopVideo": "Videó leállítása",
@@ -190,15 +210,20 @@
 	"devices.microphoneMuteError": "Nem sikerült a mikrofonod némítása",
 	"devices.microphoneUnMuteError": "Nem sikerült a mikrofonod némításának kikapcsolása",
 
-	"devices.screenSharingDisconnected" : "Képernyőmegosztás kapcsolat bontva",
+	"devices.screenSharingDisconnected": "Képernyőmegosztás kapcsolat bontva",
 	"devices.screenSharingError": "Hiba történt a képernyőd megosztása során",
 
 	"devices.cameraDisconnected": "A kamera kapcsolata lebomlott",
 	"devices.cameraError": "Hiba történt a kamera elérése során",
 
+	"devices.enableBothMicrophoneAndCamera": null,
+	"devices.disableBothMicrophoneAndCamera": null,
+	"devices.chooseMedia": null,
+
 	"moderator.clearChat": "A moderátor kiürítette a chat történelmet",
 	"moderator.clearFiles": "A moderátor kiürítette a file megosztás történelmet",
 	"moderator.muteAudio": "A moderátor elnémította a hangod",
+	"moderator.modifyPeerRoles": null,
 	"moderator.muteVideo": "A moderátor elnémította a videód",
 	"moderator.stopScreenSharing": "A moderátor leállította a képernyőmegosztásod",
 

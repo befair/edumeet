@@ -15,7 +15,6 @@ import MicOffIcon from '@material-ui/icons/MicOff';
 import VideoIcon from '@material-ui/icons/Videocam';
 import VideoOffIcon from '@material-ui/icons/VideocamOff';
 import ScreenIcon from '@material-ui/icons/ScreenShare';
-import ScreenOffIcon from '@material-ui/icons/StopScreenShare';
 
 const styles = (theme) =>
 	({
@@ -203,7 +202,7 @@ const ButtonControlBar = (props) =>
 					})}
 					className={classes.fab}
 					disabled={!me.canSendMic || me.audioInProgress}
-					color={micState === 'on' ? 'default' : 'secondary'}
+					color={micState === 'on' ? 'primary' : 'secondary'}
 					size={smallScreen ? 'large' : 'medium'}
 					onClick={() =>
 					{
@@ -230,7 +229,7 @@ const ButtonControlBar = (props) =>
 					})}
 					className={classes.fab}
 					disabled={!me.canSendWebcam || me.webcamInProgress}
-					color={webcamState === 'on' ? 'default' : 'secondary'}
+					color={webcamState === 'on' ? 'primary' : 'secondary'}
 					size={smallScreen ? 'large' : 'medium'}
 					onClick={() =>
 					{
@@ -255,7 +254,7 @@ const ButtonControlBar = (props) =>
 						})}
 						className={classes.fab}
 						disabled={!me.canShareScreen || me.screenShareInProgress}
-						color={screenState === 'on' ? 'primary' : 'default'}
+						color={screenState === 'on' ? 'primary' : 'secondary'}
 						size={smallScreen ? 'large' : 'medium'}
 						onClick={() =>
 						{
@@ -265,14 +264,7 @@ const ButtonControlBar = (props) =>
 								roomClient.disableScreenSharing();
 						}}
 					>
-						{ screenState === 'on' || screenState === 'unsupported' ?
-							<ScreenOffIcon/>
-							:null
-						}
-						{ screenState === 'off' ?
-							<ScreenIcon/>
-							:null
-						}
+						<ScreenIcon/>
 					</Fab>
 				</Tooltip>
 			}
@@ -313,6 +305,8 @@ export default withRoomContext(connect(
 		areStatesEqual : (next, prev) =>
 		{
 			return (
+				Math.round(prev.peerVolumes[prev.me.id]) ===
+				Math.round(next.peerVolumes[prev.me.id]) &&
 				prev.room.toolbarsVisible === next.room.toolbarsVisible &&
 				prev.settings.hiddenControls === next.settings.hiddenControls &&
 				prev.settings.drawerOverlayed === next.settings.drawerOverlayed &&

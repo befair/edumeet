@@ -515,31 +515,15 @@ const MediaSettings = ({
 									<div className={classes.margin} />
 									<Typography gutterBottom>
 										{
-											intl.formatMessage({
-												id             : 'settings.noiseThreshold',
-												defaultMessage : 'Noise threshold'
-											})
-										}:
+											roomClient._setNoiseThreshold(value)
+										}
+									marks={[ { value: volume, label: `${volume.toFixed(0)} dB` } ]}
 									</Typography>
-									<NoiseSlider className={classnames(classes.slider, classnames.setting)}
-										key={'noise-threshold-slider'}
-										min={-100}
-										value={settings.noiseThreshold}
-										max={0}
-										valueLabelDisplay={'auto'}
-										onChange={
-											(event, value) =>
-											{
-												roomClient._setNoiseThreshold(value);
-											}}
-										marks={[ { value: volume, label: `${volume} dB` } ]}
-									/>
-								</ListItem>
-							</List>
-						</Collapse>
-					</List>
-					:
-					<Box
+							</ListItem>
+						</List>
+					</Collapse>
+				</List>
+				: <Box
 						style={{ marginLeft: '20px', marginRight: '20px' }}
 					>
 

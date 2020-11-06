@@ -176,6 +176,7 @@ var config =
 	// background          		  : 'images/background.jpg',
 
 	// Default theme
+
 	theme                :
 	{
 		palette :

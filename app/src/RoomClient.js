@@ -4,6 +4,7 @@ import { getPrivilegedUrl, getRoomUrl, getSignalingUrl } from './urlFactory';
 import { SocketTimeoutError } from './utils';
 import * as requestActions from './actions/requestActions';
 import * as meActions from './actions/meActions';
+import * as intlActions from './actions/intlActions';
 import * as roomActions from './actions/roomActions';
 import * as peerActions from './actions/peerActions';
 import * as peerVolumeActions from './actions/peerVolumeActions';
@@ -16,6 +17,10 @@ import * as producerActions from './actions/producerActions';
 import * as notificationActions from './actions/notificationActions';
 import * as transportActions from './actions/transportActions';
 import { createBrowserHistory } from 'history';
+import Spotlights from './Spotlights';
+import { permissions } from './permissions';
+import * as locales from './translations/locales';
+import { createIntl } from 'react-intl';
 
 let createTorrent;
 
@@ -29,57 +34,49 @@ let io;
 
 let ScreenShare;
 
-let Spotlights;
-
 let requestTimeout,
-	transportOptions,
 	lastN,
-	mobileLastN;
+	mobileLastN,
+	videoAspectRatio;
 
 if (process.env.NODE_ENV !== 'test')
 {
 	({
-		requestTimeout,
-		transportOptions,
-		lastN,
-		mobileLastN
+		requestTimeout = 20000,
+		lastN = 4,
+		mobileLastN = 1,
+		videoAspectRatio = 1.777 // 16 : 9
 	} = window.config);
 }
 
 const logger = new Logger('RoomClient');
-
-const ROOM_OPTIONS =
-{
-	requestTimeout   : requestTimeout,
-	transportOptions : transportOptions
-};
 
 const VIDEO_CONSTRAINS =
 {
 	'low' :
 	{
 		width       : { ideal: 320 },
-		aspectRatio : 1.334
+		aspectRatio : videoAspectRatio
 	},
 	'medium' :
 	{
 		width       : { ideal: 640 },
-		aspectRatio : 1.334
+		aspectRatio : videoAspectRatio
 	},
 	'high' :
 	{
 		width       : { ideal: 1280 },
-		aspectRatio : 1.334
+		aspectRatio : videoAspectRatio
 	},
 	'veryhigh' :
 	{
 		width       : { ideal: 1920 },
-		aspectRatio : 1.334
+		aspectRatio : videoAspectRatio
 	},
 	'ultra' :
 	{
 		width       : { ideal: 3840 },
-		aspectRatio : 1.334
+		aspectRatio : videoAspectRatio
 	}
 };
 
@@ -90,9 +87,8 @@ const PC_PROPRIETARY_CONSTRAINTS =
 
 const VIDEO_SIMULCAST_ENCODINGS =
 [
-	{ scaleResolutionDownBy: 4 },
-	{ scaleResolutionDownBy: 2 },
-	{ scaleResolutionDownBy: 1 }
+	{ scaleResolutionDownBy: 4, maxBitRate: 100000 },
+	{ scaleResolutionDownBy: 1, maxBitRate: 1200000 }
 ];
 
 // Used for VP9 webcam video.
@@ -121,7 +117,6 @@ export default class RoomClient
 	static init(data)
 	{
 		store = data.store;
-		intl = data.intl;
 	}
 
 	constructor(
@@ -226,7 +221,7 @@ export default class RoomClient
 			settingsActions.setLastN(this._maxSpotlights));
 
 		// Manager of spotlight
-		this._spotlights = null;
+		this._spotlights = new Spotlights(this._maxSpotlights, this);
 
 		// Transport for sending.
 		this._sendTransport = null;
@@ -268,6 +263,9 @@ export default class RoomClient
 		this._startKeyListener();
 
 		this._startDevicesListener();
+
+		this.setLocale(store.getState().intl.locale);
+
 	}
 
 	close()
@@ -290,7 +288,7 @@ export default class RoomClient
 
 		store.dispatch(roomActions.setRoomState('closed'));
 
-		window.location = '/';
+		window.location = `/${this._roomId}`;
 	}
 
 	_startKeyListener()
@@ -311,6 +309,8 @@ export default class RoomClient
 
 				switch (key)
 				{
+
+					/*
 					case String.fromCharCode(37):
 					{
 						const newPeerId = this._spotlights.getPrevAsSelected(
@@ -319,6 +319,7 @@ export default class RoomClient
 						if (newPeerId) this.setSelectedPeer(newPeerId);
 						break;
 					}
+
 					case String.fromCharCode(39):
 					{
 						const newPeerId = this._spotlights.getNextAsSelected(
@@ -327,6 +328,8 @@ export default class RoomClient
 						if (newPeerId) this.setSelectedPeer(newPeerId);
 						break;
 					}
+					*/
+
 					case 'A': // Activate advanced mode
 					{
 						store.dispatch(settingsActions.toggleAdvancedMode());
@@ -504,6 +507,28 @@ export default class RoomClient
 		});
 	}
 
+	setLocale(locale)
+	{
+
+		if (locale === null) locale = locales.detect();
+
+		const one = locales.loadOne(locale);
+
+		store.dispatch(intlActions.updateIntl({
+			locale   : one.locale[0],
+			messages : one.messages,
+			list   	 : locales.getList()
+		}));
+
+		intl = createIntl({
+			locale   : store.getState().intl.locale,
+			messages : store.getState().intl.messages
+		});
+
+		document.documentElement.lang = store.getState().intl.locale.toUpperCase();
+
+	}
+
 	login(roomId = this._roomId)
 	{
 		const url = `/auth/login?peerId=${this._peerId}&roomId=${roomId}`;
@@ -585,7 +610,7 @@ export default class RoomClient
 				called = true;
 				callback(new SocketTimeoutError('Request timed out'));
 			},
-			ROOM_OPTIONS.requestTimeout
+			requestTimeout
 		);
 
 		return (...args) =>
@@ -683,10 +708,12 @@ export default class RoomClient
 
 	async changeDisplayName(displayName)
 	{
-		logger.debug('changeDisplayName() [displayName:"%s"]', displayName);
+		displayName = displayName.trim();
 
 		if (!displayName)
-			displayName = 'Guest';
+			displayName = `Guest ${Math.floor(Math.random() * (100000 - 10000)) + 10000}`;
+
+		logger.debug('changeDisplayName() [displayName:"%s"]', displayName);
 
 		store.dispatch(
 			meActions.setDisplayNameInProgress(true));
@@ -954,6 +981,10 @@ export default class RoomClient
 
 			store.dispatch(
 				producerActions.setProducerPaused(this._micProducer.id));
+
+			store.dispatch(
+				settingsActions.setAudioMuted(true));
+
 		}
 		catch (error)
 		{
@@ -989,6 +1020,10 @@ export default class RoomClient
 
 				store.dispatch(
 					producerActions.setProducerResumed(this._micProducer.id));
+
+				store.dispatch(
+					settingsActions.setAudioMuted(false));
+
 			}
 			catch (error)
 			{
@@ -1019,6 +1054,8 @@ export default class RoomClient
 	{
 		logger.debug('updateSpotlights()');
 
+		store.dispatch(roomActions.setSpotlights(spotlights));
+
 		try
 		{
 			for (const consumer of this._consumers.values())
@@ -1028,7 +1065,11 @@ export default class RoomClient
 					if (spotlights.includes(consumer.appData.peerId))
 						await this._resumeConsumer(consumer);
 					else
+					{
 						await this._pauseConsumer(consumer);
+						store.dispatch(
+							roomActions.removeSelectedPeer(consumer.appData.peerId));
+					}
 				}
 			}
 		}
@@ -1080,10 +1121,13 @@ export default class RoomClient
 
 		this._hark.on('volume_change', (volume) =>
 		{
-			volume = Math.round(volume);
-
-			if (this._micProducer && (volume !== Math.round(this._hark.lastVolume)))
+			// Update only if there is a bigger diff 
+			if (this._micProducer && Math.abs(volume - this._hark.lastVolume) > 0.5)
 			{
+				// Decay calculation: keep in mind that volume range is -100 ... 0 (dB)
+				// This makes decay volume fast if difference to last saved value is big
+				// and slow for small changes. This prevents flickering volume indicator
+				// at low levels
 				if (volume < this._hark.lastVolume)
 				{
 					volume =
@@ -1091,8 +1135,8 @@ export default class RoomClient
 						Math.pow(
 							(volume - this._hark.lastVolume) /
 							(100 + this._hark.lastVolume)
-							, 4
-						) * 2;
+							, 2
+						) * 10;
 				}
 
 				this._hark.lastVolume = volume;
@@ -1160,7 +1204,14 @@ export default class RoomClient
 			meActions.setAudioOutputInProgress(false));
 	}
 
-	async updateMic({ start = false, restart = false, newDeviceId = null } = {})
+	// Only Firefox supports applyConstraints to audio tracks
+	// See:
+	// https://bugs.chromium.org/p/chromium/issues/detail?id=796964
+	async updateMic({
+		start = false,
+		restart = false || this._device.flag !== 'firefox',
+		newDeviceId = null
+	} = {})
 	{
 		logger.debug(
 			'updateMic() [start:"%s", restart:"%s", newDeviceId:"%s"]',
@@ -1191,14 +1242,29 @@ export default class RoomClient
 				throw new Error('no audio devices');
 
 			const {
-				sampleRate,
-				channelCount,
-				volume,
 				autoGainControl,
 				echoCancellation,
-				noiseSuppression,
-				sampleSize
+				noiseSuppression
 			} = store.getState().settings;
+
+			if (!window.config.centralAudioOptions)
+			{
+				throw new Error(
+					'Missing centralAudioOptions from app config! (See it in example config.)'
+				);
+			}
+
+			const {
+				sampleRate = 96000,
+				channelCount = 1,
+				volume = 1.0,
+				sampleSize = 16,
+				opusStereo = false,
+				opusDtx = true,
+				opusFec = true,
+				opusPtime = 20,
+				opusMaxPlaybackRate = 96000
+			} = window.config.centralAudioOptions;
 
 			if (
 				(restart && this._micProducer) ||
@@ -1236,11 +1302,11 @@ export default class RoomClient
 						track,
 						codecOptions :
 						{
-							opusStereo          : false,
-							opusDtx             : true,
-							opusFec             : true,
-							opusPtime           : '3',
-							opusMaxPlaybackRate	: 48000
+							opusStereo,
+							opusDtx,
+							opusFec,
+							opusPtime,
+							opusMaxPlaybackRate
 						},
 						appData :
 						{ source: 'mic' }
@@ -1312,6 +1378,8 @@ export default class RoomClient
 					);
 				}
 			}
+
+			await this._updateAudioDevices();
 		}
 		catch (error)
 		{
@@ -1334,6 +1402,7 @@ export default class RoomClient
 	}
 
 	async updateWebcam({
+		init = false,
 		start = false,
 		restart = false,
 		newDeviceId = null,
@@ -1368,6 +1437,13 @@ export default class RoomClient
 
 			if (newFrameRate)
 				store.dispatch(settingsActions.setVideoFrameRate(newFrameRate));
+
+			const { videoMuted } = store.getState().settings;
+
+			if (init && videoMuted)
+				return;
+			else
+				store.dispatch(settingsActions.setVideoMuted(false));
 
 			store.dispatch(meActions.setWebcamInProgress(true));
 
@@ -1501,6 +1577,8 @@ export default class RoomClient
 					);
 				}
 			}
+
+			await this._updateWebcams();
 		}
 		catch (error)
 		{
@@ -1523,14 +1601,24 @@ export default class RoomClient
 			meActions.setWebcamInProgress(false));
 	}
 
-	setSelectedPeer(peerId)
+	addSelectedPeer(peerId)
 	{
-		logger.debug('setSelectedPeer() [peerId:"%s"]', peerId);
+		logger.debug('addSelectedPeer() [peerId:"%s"]', peerId);
 
-		this._spotlights.setPeerSpotlight(peerId);
+		this._spotlights.addPeerToSpotlight(peerId);
 
 		store.dispatch(
-			roomActions.setSelectedPeer(peerId));
+			roomActions.addSelectedPeer(peerId));
+	}
+
+	removeSelectedPeer(peerId)
+	{
+		logger.debug('removeSelectedPeer() [peerId:"%s"]', peerId);
+
+		this._spotlights.removePeerSpotlight(peerId);
+
+		store.dispatch(
+			roomActions.removeSelectedPeer(peerId));
 	}
 
 	async promoteAllLobbyPeers()
@@ -1615,6 +1703,46 @@ export default class RoomClient
 
 		store.dispatch(
 			roomActions.setClearFileSharingInProgress(false));
+	}
+
+	async givePeerRole(peerId, roleId)
+	{
+		logger.debug('givePeerRole() [peerId:"%s", roleId:"%s"]', peerId, roleId);
+
+		store.dispatch(
+			peerActions.setPeerModifyRolesInProgress(peerId, true));
+
+		try
+		{
+			await this.sendRequest('moderator:giveRole', { peerId, roleId });
+		}
+		catch (error)
+		{
+			logger.error('givePeerRole() [error:"%o"]', error);
+		}
+
+		store.dispatch(
+			peerActions.setPeerModifyRolesInProgress(peerId, false));
+	}
+
+	async removePeerRole(peerId, roleId)
+	{
+		logger.debug('removePeerRole() [peerId:"%s", roleId:"%s"]', peerId, roleId);
+
+		store.dispatch(
+			peerActions.setPeerModifyRolesInProgress(peerId, true));
+
+		try
+		{
+			await this.sendRequest('moderator:removeRole', { peerId, roleId });
+		}
+		catch (error)
+		{
+			logger.error('removePeerRole() [error:"%o"]', error);
+		}
+
+		store.dispatch(
+			peerActions.setPeerModifyRolesInProgress(peerId, false));
 	}
 
 	async kickPeer(peerId)
@@ -2015,13 +2143,6 @@ export default class RoomClient
 			'./ScreenShare'
 		));
 
-		({ default: Spotlights } = await import(
-
-			/* webpackPrefetch: true */
-			/* webpackChunkName: "spotlights" */
-			'./Spotlights'
-		));
-
 		mediasoupClient = await import(
 
 			/* webpackPrefetch: true */
@@ -2037,7 +2158,7 @@ export default class RoomClient
 		));
 	}
 
-	async join({ roomId, token, joinVideo })
+	async join({ roomId, token, joinVideo, joinAudio })
 	{
 		await this._loadDynamicImports();
 
@@ -2054,8 +2175,6 @@ export default class RoomClient
 		this._screenSharing = ScreenShare.create(this._device);
 
 		this._signalingSocket = io(this._signalingUrl);
-
-		this._spotlights = new Spotlights(this._maxSpotlights, this._signalingSocket);
 
 		store.dispatch(roomActions.setRoomState('connecting'));
 
@@ -2334,14 +2453,14 @@ export default class RoomClient
 						store.dispatch(roomActions.toggleJoined());
 						store.dispatch(roomActions.setInLobby(false));
 
-						await this._joinRoom({ joinVideo });
+						await this._joinRoom({ joinVideo, joinAudio });
 
 						break;
 					}
 
 					case 'roomBack':
 					{
-						await this._joinRoom({ joinVideo });
+						await this._joinRoom({ joinVideo, joinAudio });
 
 						break;
 					}
@@ -2751,8 +2870,7 @@ export default class RoomClient
 						if (window.config.enableJoinNotification !== undefined)
 							enableJoinNotification = window.config.enableJoinNotification;
 
-						store.dispatch(
-							peerActions.addPeer({ id, displayName, picture, roles, consumers: [] }));
+						this._spotlights.newPeer(id);
 
 						if (enableJoinNotification)
 						{
@@ -2775,6 +2893,8 @@ export default class RoomClient
 					case 'peerClosed':
 					{
 						const { peerId } = notification.data;
+
+						this._spotlights.closePeer(peerId);
 
 						store.dispatch(
 							peerActions.removePeer(peerId));
@@ -2922,11 +3042,13 @@ export default class RoomClient
 
 					case 'gotRole':
 					{
-						const { peerId, role } = notification.data;
+						const { peerId, roleId } = notification.data;
+
+						const userRoles = store.getState().room.userRoles;
 
 						if (peerId === this._peerId)
 						{
-							store.dispatch(meActions.addRole(role));
+							store.dispatch(meActions.addRole(roleId));
 
 							store.dispatch(requestActions.notify(
 								{
@@ -2934,23 +3056,25 @@ export default class RoomClient
 										id             : 'roles.gotRole',
 										defaultMessage : 'You got the role: {role}'
 									}, {
-										role
+										role : userRoles.get(roleId).label
 									})
 								}));
 						}
 						else
-							store.dispatch(peerActions.addPeerRole(peerId, role));
+							store.dispatch(peerActions.addPeerRole(peerId, roleId));
 
 						break;
 					}
 
 					case 'lostRole':
 					{
-						const { peerId, role } = notification.data;
+						const { peerId, roleId } = notification.data;
+
+						const userRoles = store.getState().room.userRoles;
 
 						if (peerId === this._peerId)
 						{
-							store.dispatch(meActions.removeRole(role));
+							store.dispatch(meActions.removeRole(roleId));
 
 							store.dispatch(requestActions.notify(
 								{
@@ -2958,12 +3082,12 @@ export default class RoomClient
 										id             : 'roles.lostRole',
 										defaultMessage : 'You lost the role: {role}'
 									}, {
-										role
+										role : userRoles.get(roleId).label
 									})
 								}));
 						}
 						else
-							store.dispatch(peerActions.removePeerRole(peerId, role));
+							store.dispatch(peerActions.removePeerRole(peerId, roleId));
 
 						break;
 					}
@@ -2992,7 +3116,7 @@ export default class RoomClient
 		});
 	}
 
-	async _joinRoom({ joinVideo })
+	async _joinRoom({ joinVideo, joinAudio })
 	{
 		logger.debug('_joinRoom()');
 
@@ -3156,6 +3280,7 @@ export default class RoomClient
 				peers,
 				tracker,
 				roomPermissions,
+				userRoles,
 				allowWhenRoleMissing,
 				chatHistory,
 				fileHistory,
@@ -3172,10 +3297,11 @@ export default class RoomClient
 				});
 
 			logger.debug(
-				'_joinRoom() joined [authenticated:"%s", peers:"%o", roles:"%o"]',
+				'_joinRoom() joined [authenticated:"%s", peers:"%o", roles:"%o", userRoles:"%o"]',
 				authenticated,
 				peers,
-				roles
+				roles,
+				userRoles
 			);
 
 			tracker && (this._tracker = tracker);
@@ -3184,16 +3310,22 @@ export default class RoomClient
 
 			store.dispatch(roomActions.setRoomPermissions(roomPermissions));
 
+			const roomUserRoles = new Map();
+
+			Object.values(userRoles).forEach((val) => roomUserRoles.set(val.id, val));
+
+			store.dispatch(roomActions.setUserRoles(roomUserRoles));
+
 			if (allowWhenRoleMissing)
 				store.dispatch(roomActions.setAllowWhenRoleMissing(allowWhenRoleMissing));
 
 			const myRoles = store.getState().me.roles;
 
-			for (const role of roles)
+			for (const roleId of roles)
 			{
-				if (!myRoles.includes(role))
+				if (!myRoles.some((myRoleId) => roleId === myRoleId))
 				{
-					store.dispatch(meActions.addRole(role));
+					store.dispatch(meActions.addRole(roleId));
 
 					store.dispatch(requestActions.notify(
 						{
@@ -3201,7 +3333,7 @@ export default class RoomClient
 								id             : 'roles.gotRole',
 								defaultMessage : 'You got the role: {role}'
 							}, {
-								role
+								role : roomUserRoles.get(roleId).label
 							})
 						}));
 				}
@@ -3213,28 +3345,11 @@ export default class RoomClient
 					peerActions.addPeer({ ...peer, consumers: [] }));
 			}
 
-			this._spotlights.addPeers(peers);
-
-			this._spotlights.on('spotlights-updated', (spotlights) =>
-			{
-				store.dispatch(roomActions.setSpotlights(spotlights));
-				this.updateSpotlights(spotlights);
-			});
-
 			(chatHistory.length > 0) && store.dispatch(
 				chatActions.addChatHistory(chatHistory));
 
 			(fileHistory.length > 0) && store.dispatch(
 				fileActions.addFileHistory(fileHistory));
-
-			if (lastNHistory.length > 0)
-			{
-				logger.debug('_joinRoom() | got lastN history');
-
-				this._spotlights.addSpeakerList(
-					lastNHistory.filter((peerId) => peerId !== this._peerId)
-				);
-			}
 
 			locked ?
 				store.dispatch(roomActions.setRoomLocked()) :
@@ -3256,7 +3371,18 @@ export default class RoomClient
 			// Don't produce if explicitly requested to not to do it.
 			if (this._produce)
 			{
-				if (this._mediasoupDevice.canProduce('audio'))
+				if (
+					joinVideo &&
+					this._havePermission(permissions.SHARE_VIDEO)
+				)
+				{
+					this.updateWebcam({ init: true, start: true });
+				}
+				if (
+					joinAudio &&
+					this._mediasoupDevice.canProduce('audio') &&
+					this._havePermission(permissions.SHARE_AUDIO)
+				)
 					if (!this._muted)
 					{
 						await this.updateMic({ start: true });
@@ -3269,9 +3395,6 @@ export default class RoomClient
 						if (autoMuteThreshold && peers.length >= autoMuteThreshold)
 							this.muteMic();
 					}
-
-				if (joinVideo)
-					this.updateWebcam({ start: true });
 			}
 
 			await this._updateAudioOutputDevices();
@@ -3300,7 +3423,16 @@ export default class RoomClient
 					})
 				}));
 
-			this._spotlights.start();
+			this._spotlights.addPeers(peers);
+
+			if (lastNHistory.length > 0)
+			{
+				logger.debug('_joinRoom() | got lastN history');
+
+				this._spotlights.addSpeakerList(
+					lastNHistory.filter((peerId) => peerId !== this._peerId)
+				);
+			}
 		}
 		catch (error)
 		{
@@ -3482,90 +3614,117 @@ export default class RoomClient
 
 			([ track ] = stream.getVideoTracks());
 
-			let producer;
+			let exists = false;
 
-			if (this._useSimulcast)
+			this._extraVideoProducers.forEach(function(value)
 			{
-				// If VP9 is the only available video codec then use SVC.
-				const firstVideoCodec = this._mediasoupDevice
-					.rtpCapabilities
-					.codecs
-					.find((c) => c.kind === 'video');
+				if (value._track.label===track.label)
+				{
+					exists=true;
+				}
+			});
 
-				let encodings;
+			if (!exists)
+			{
 
-				if (firstVideoCodec.mimeType.toLowerCase() === 'video/vp9')
-					encodings = VIDEO_KSVC_ENCODINGS;
-				else if ('simulcastEncodings' in window.config)
-					encodings = window.config.simulcastEncodings;
-				else
-					encodings = VIDEO_SIMULCAST_ENCODINGS;
+				let producer;
 
-				producer = await this._sendTransport.produce(
-					{
-						track,
-						encodings,
-						codecOptions :
+				if (this._useSimulcast)
+				{
+					// If VP9 is the only available video codec then use SVC.
+					const firstVideoCodec = this._mediasoupDevice
+						.rtpCapabilities
+						.codecs
+						.find((c) => c.kind === 'video');
+
+					let encodings;
+
+					if (firstVideoCodec.mimeType.toLowerCase() === 'video/vp9')
+						encodings = VIDEO_KSVC_ENCODINGS;
+					else if ('simulcastEncodings' in window.config)
+						encodings = window.config.simulcastEncodings;
+					else
+						encodings = VIDEO_SIMULCAST_ENCODINGS;
+
+					producer = await this._sendTransport.produce(
 						{
-							videoGoogleStartBitrate : 1000
-						},
+							track,
+							encodings,
+							codecOptions :
+							{
+								videoGoogleStartBitrate : 1000
+							},
+							appData :
+							{
+								source : 'extravideo'
+							}
+						});
+				}
+				else
+				{
+					producer = await this._sendTransport.produce({
+						track,
 						appData :
 						{
 							source : 'extravideo'
 						}
 					});
+				}
+
+				this._extraVideoProducers.set(producer.id, producer);
+
+				store.dispatch(producerActions.addProducer(
+					{
+						id            : producer.id,
+						deviceLabel   : device.label,
+						source        : 'extravideo',
+						paused        : producer.paused,
+						track         : producer.track,
+						rtpParameters : producer.rtpParameters,
+						codec         : producer.rtpParameters.codecs[0].mimeType.split('/')[1]
+					}));
+
+				// store.dispatch(settingsActions.setSelectedWebcamDevice(deviceId));
+
+				await this._updateWebcams();
+
+				producer.on('transportclose', () =>
+				{
+					this._extraVideoProducers.delete(producer.id);
+
+					producer = null;
+				});
+
+				producer.on('trackended', () =>
+				{
+					store.dispatch(requestActions.notify(
+						{
+							type : 'error',
+							text : intl.formatMessage({
+								id             : 'devices.cameraDisconnected',
+								defaultMessage : 'Camera disconnected'
+							})
+						}));
+
+					this.disableExtraVideo(producer.id)
+						.catch(() => {});
+				});
+
+				logger.debug('addExtraVideo() succeeded');
+
 			}
 			else
 			{
-				producer = await this._sendTransport.produce({
-					track,
-					appData :
-					{
-						source : 'extravideo'
-					}
-				});
-			}
-
-			this._extraVideoProducers.set(producer.id, producer);
-
-			store.dispatch(producerActions.addProducer(
-				{
-					id            : producer.id,
-					deviceLabel   : device.label,
-					source        : 'extravideo',
-					paused        : producer.paused,
-					track         : producer.track,
-					rtpParameters : producer.rtpParameters,
-					codec         : producer.rtpParameters.codecs[0].mimeType.split('/')[1]
-				}));
-
-			// store.dispatch(settingsActions.setSelectedWebcamDevice(deviceId));
-
-			await this._updateWebcams();
-
-			producer.on('transportclose', () =>
-			{
-				this._extraVideoProducers.delete(producer.id);
-
-				producer = null;
-			});
-
-			producer.on('trackended', () =>
-			{
+				logger.error('addExtraVideo() duplicate');
 				store.dispatch(requestActions.notify(
 					{
 						type : 'error',
 						text : intl.formatMessage({
-							id             : 'devices.cameraDisconnected',
-							defaultMessage : 'Camera disconnected'
+							id             : 'room.extraVideoDuplication',
+							defaultMessage : 'Extra videodevice duplication errordefault'
 						})
 					}));
-
-				this.disableExtraVideo(producer.id)
-					.catch(() => {});
-			});
-
-			logger.debug('addExtraVideo() succeeded');
+			}
 		}
 		catch (error)
 		{
@@ -3858,7 +4017,7 @@ export default class RoomClient
 		}
 
 		this._webcamProducer = null;
-
+		store.dispatch(settingsActions.setVideoMuted(true));
 		store.dispatch(meActions.setWebcamInProgress(false));
 	}
 
@@ -4014,5 +4173,47 @@ export default class RoomClient
 		{
 			logger.error('_updateAudioOutputDevices() [error:"%o"]', error);
 		}
+	}
+
+	_havePermission(permission)
+	{
+		const {
+			roomPermissions,
+			allowWhenRoleMissing
+		} = store.getState().room;
+
+		if (!roomPermissions)
+			return false;
+
+		const { roles } = store.getState().me;
+
+		const permitted = roles.some((userRoleId) =>
+			roomPermissions[permission].some((permissionRole) =>
+				userRoleId === permissionRole.id
+			)
+		);
+
+		if (permitted)
+			return true;
+
+		if (!allowWhenRoleMissing)
+			return false;
+
+		const peers = Object.values(store.getState().peers);
+
+		// Allow if config is set, and no one is present
+		if (allowWhenRoleMissing.includes(permission) &&
+			peers.filter(
+				(peer) =>
+					peer.roles.some(
+						(roleId) => roomPermissions[permission].some((permissionRole) =>
+							roleId === permissionRole.id
+						)
+					)
+			).length === 0
+		)
+			return true;
+
+		return false;
 	}
 }

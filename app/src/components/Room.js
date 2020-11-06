@@ -29,6 +29,7 @@ import ExtraVideo from './Controls/ExtraVideo';
 import ButtonControlBar from './Controls/ButtonControlBar';
 import Help from './Controls/Help';
 import About from './Controls/About';
+import RolesManager from './Controls/RolesManager';
 
 const TIMEOUT = window.config.hideTimeout || 5000;
 
@@ -283,6 +284,37 @@ class Room extends React.PureComponent
 							</Drawer>
 						</Hidden>
 					</nav>
+				}
+
+				{ browser.platform === 'mobile' && browser.os !== 'ios' &&
+					<WakeLock />
+				}
+
+				<View advancedMode={advancedMode} />
+
+				{ buttonControlBar &&
+					<ButtonControlBar />
+				}
+
+				{ room.lockDialogOpen &&
+					<LockDialog />
+				}
+
+				{ room.settingsOpen &&
+					<Settings />
+				}
+
+				{ room.extraVideoOpen &&
+					<ExtraVideo />
+				}
+				{ room.helpOpen &&
+					<Help />
+				}
+				{ room.aboutOpen &&
+					<About />
+				}
+				{ room.rolesManagerOpen &&
+					<RolesManager />
 				}
 			</div>
 		);
