@@ -12,6 +12,7 @@ import { Flipper, Flipped } from 'react-flip-toolkit';
 import { FormattedMessage } from 'react-intl';
 import ListPeer from './ListPeer';
 import ListMe from './ListMe';
+import roomClient from '../../../RoomClient';
 import ListModerator from './ListModerator';
 import Volume from '../../Containers/Volume';
 import Button from '@material-ui/core/Button';

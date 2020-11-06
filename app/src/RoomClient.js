@@ -2863,7 +2863,7 @@ export default class RoomClient
 
 					case 'newPeer':
 					{
-						const { id, displayName, picture, roles } = notification.data;
+						const { id, displayName } = notification.data;
 
 						let enableJoinNotification = true; // Default
 

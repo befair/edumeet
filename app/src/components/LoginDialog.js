@@ -125,7 +125,6 @@ const ChooseRoom = ({
 				<form method='post' action='/auth/callback'>
 					<DialogContent>
 
-
 						<TextField
 							autoFocus
 							id='username'

@@ -41,7 +41,7 @@ const styles = (theme) =>
 			{
 				transform : 'scaleX(-1)'
 			},
-			'&.isMirrored'     :
+			'&.isMirrored' :
 			{
 				transform : 'scaleX(-1)'
 			},

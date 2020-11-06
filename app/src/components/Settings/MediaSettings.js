@@ -514,19 +514,14 @@ const MediaSettings = ({
 								<ListItem className={classes.nested}>
 									<div className={classes.margin} />
 									<Typography gutterBottom>
-										{
-											roomClient._setNoiseThreshold(value)
-										}
-									marks={[ { value: volume, label: `${volume.toFixed(0)} dB` } ]}
+										{roomClient._setNoiseThreshold(volume)}
+										marks={[ { value: volume, label: `${volume.toFixed(0)} dB` } ]}
 									</Typography>
-							</ListItem>
-						</List>
-					</Collapse>
-				</List>
-				: <Box
-						style={{ marginLeft: '20px', marginRight: '20px' }}
-					>
-
+								</ListItem>
+							</List>
+						</Collapse>
+					</List>
+					: <Box style={{ marginLeft: '20px', marginRight: '20px' }}>
 						<Typography gutterBottom>
 							{
 								intl.formatMessage({

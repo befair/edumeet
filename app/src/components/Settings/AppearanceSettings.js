@@ -37,22 +37,15 @@ const styles = (theme) =>
 const AppearanceSettings = (props) =>
 {
 	const {
-		roomClient,
-		isMobile,
 		room,
-		locale,
 		settings,
 		onTogglePermanentTopBar,
 		onToggleHiddenControls,
 		onToggleButtonControlBar,
 		onToggleShowNotifications,
 		onToggleDrawerOverlayed,
-		onToggleMirrorOwnVideo,
 		handleChangeMode,
-		handleChangeAspectRatio,
-		classes,
-		localesList
-
+		classes
 	} = props;
 
 	const intl = useIntl();
@@ -69,14 +62,6 @@ const AppearanceSettings = (props) =>
 			id             : 'label.filmstrip',
 			defaultMessage : 'Filmstrip view'
 		})
-	} ];
-
-	const aspectRatios = window.config.aspectRatios || [ {
-		value : 1.333,
-		label : '4 : 3'
-	}, {
-		value : 1.777,
-		label : '16 : 9'
 	} ];
 
 	return (

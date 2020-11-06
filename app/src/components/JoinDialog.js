@@ -26,10 +26,8 @@ import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import VideocamIcon from '@material-ui/icons/Videocam';
-import MicIcon from '@material-ui/icons/Mic';
 import BlockIcon from '@material-ui/icons/Block';
 import MicIcon from '@material-ui/icons/Mic';
-import VideocamIcon from '@material-ui/icons/Videocam';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import WorkOutlineIcon from '@material-ui/icons/WorkOutline';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
@@ -51,9 +49,6 @@ const styles = (theme) =>
 			backgroundPosition   : 'center',
 			backgroundSize       : 'cover',
 			backgroundRepeat     : 'no-repeat'
-		},
-		dialogTitle :
-		{
 		},
 		dialogPaper :
 		{
@@ -90,10 +85,6 @@ const styles = (theme) =>
 			width  : 50,
 			height : 50
 		},
-		joinButton :
-		{
-			borderRadius	: '30px'
-		},
 		blue :
 		{
 			color : '#094E98'
@@ -104,9 +95,10 @@ const styles = (theme) =>
 		},
 		joinButton :
 		{
-			background : '#2e7031',
-			color      : 'white',
-			'&:hover'  : {
+			background   : '#2e7031',
+			color        : 'white',
+			borderRadius : '30px',
+			'&:hover'    : {
 				backgroundColor : '#2e7031'
 			}
 		},
@@ -157,7 +149,6 @@ const DialogActions = withStyles(() => ({}))(MuiDialogActions);
 const JoinDialog = ({
 	roomClient,
 	room,
-	roomId,
 	token,
 	mediaPerms,
 	displayName,
@@ -238,7 +229,7 @@ const JoinDialog = ({
 
 		roomClient.join({
 			roomId    : encodedRoomId,
-			token	  : token,
+			token	    : token,
 			joinVideo : mediaPerms.video,
 			joinAudio : mediaPerms.audio
 		});

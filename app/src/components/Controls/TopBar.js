@@ -25,7 +25,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
-import ExtensionIcon from '@material-ui/icons/Extension';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import FullScreenIcon from '@material-ui/icons/Fullscreen';
 import FullScreenExitIcon from '@material-ui/icons/FullscreenExit';
