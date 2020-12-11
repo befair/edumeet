@@ -745,6 +745,11 @@ async function runWebSocketServer()
 				}
 			}
 
+			if (typeof config.localUserMapping === 'function')
+			{
+				await config.localUserMapping({ peer, room, roomId });
+			}
+
 			room.handlePeer({ peer, returning });
 
 			statusLog();
