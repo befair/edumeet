@@ -37,10 +37,8 @@ const styles = (theme) =>
 const AppearanceSettings = (props) =>
 {
 	const {
-		roomClient,
 		isMobile,
 		room,
-		locale,
 		settings,
 		onTogglePermanentTopBar,
 		onToggleHiddenControls,
@@ -50,9 +48,7 @@ const AppearanceSettings = (props) =>
 		onToggleMirrorOwnVideo,
 		handleChangeMode,
 		handleChangeAspectRatio,
-		classes,
-		localesList
-
+		classes
 	} = props;
 
 	const intl = useIntl();
@@ -81,39 +77,6 @@ const AppearanceSettings = (props) =>
 
 	return (
 		<React.Fragment>
-
-			<FormControl className={classes.setting}>
-				<Select
-					value={locale || ''}
-					onChange={(event) =>
-					{
-						if (event.target.value)
-							roomClient.setLocale(event.target.value);
-					}
-					}
-					name={intl.formatMessage({
-						id             : 'settings.language',
-						defaultMessage : 'Language'
-					})}
-					autoWidth
-					className={classes.selectEmpty}
-				>
-					{ localesList.map((item, index) =>
-					{
-						return (
-							<MenuItem key={index} value={item.locale[0]}>
-								{item.name}
-							</MenuItem>
-						);
-					})}
-				</Select>
-				<FormHelperText>
-					<FormattedMessage
-						id='settings.language'
-						defaultMessage='Select language'
-					/>
-				</FormHelperText>
-			</FormControl>
 
 			<FormControl className={classes.setting}>
 				<Select
@@ -147,76 +110,87 @@ const AppearanceSettings = (props) =>
 				</FormHelperText>
 			</FormControl>
 
-			<FormControl className={classes.setting}>
-				<Select
-					value={settings.aspectRatio || ''}
-					onChange={(event) =>
-					{
-						if (event.target.value)
-							handleChangeAspectRatio(event.target.value);
-					}}
-					name={intl.formatMessage({
-						id             : 'settings.aspectRatio',
-						defaultMessage : 'Video aspect ratio'
+			{ !window.config.hiddenSettings.aspectRatio &&
+				<FormControl className={classes.setting}>
+					<Select
+						value={settings.aspectRatio || ''}
+						onChange={(event) =>
+						{
+							if (event.target.value)
+								handleChangeAspectRatio(event.target.value);
+						}}
+						name={intl.formatMessage({
+							id             : 'settings.aspectRatio',
+							defaultMessage : 'Video aspect ratio'
+						})}
+						autoWidth
+						className={classes.selectEmpty}
+					>
+						{ aspectRatios.map((aspectRatio, index) =>
+						{
+							return (
+								<MenuItem key={index} value={aspectRatio.value}>
+									{aspectRatio.label}
+								</MenuItem>
+							);
+						})}
+					</Select>
+					<FormHelperText>
+						<FormattedMessage
+							id='settings.selectAspectRatio'
+							defaultMessage='Select video aspect ratio'
+						/>
+					</FormHelperText>
+				</FormControl>
+			}
+			{ !window.config.hiddenSettings.mirrorOwnVideo &&
+				<FormControlLabel
+					className={classnames(classes.setting, classes.switchLabel)}
+					control={
+						<Switch checked={settings.mirrorOwnVideo} onChange={onToggleMirrorOwnVideo} value='mirrorOwnVideo' />}
+					labelPlacement='start'
+					label={intl.formatMessage({
+						id             : 'settings.mirrorOwnVideo',
+						defaultMessage : 'Mirror view of own video'
 					})}
-					autoWidth
-					className={classes.selectEmpty}
-				>
-					{ aspectRatios.map((aspectRatio, index) =>
-					{
-						return (
-							<MenuItem key={index} value={aspectRatio.value}>
-								{aspectRatio.label}
-							</MenuItem>
-						);
+				/>
+			}
+			{ !window.config.hiddenSettings.permanentTopBar &&
+				<FormControlLabel
+					className={classnames(classes.setting, classes.switchLabel)}
+					control={
+						<Switch checked={settings.permanentTopBar} onChange={onTogglePermanentTopBar} value='permanentTopBar' />}
+					labelPlacement='start'
+					label={intl.formatMessage({
+						id             : 'settings.permanentTopBar',
+						defaultMessage : 'Permanent top bar'
 					})}
-				</Select>
-				<FormHelperText>
-					<FormattedMessage
-						id='settings.selectAspectRatio'
-						defaultMessage='Select video aspect ratio'
-					/>
-				</FormHelperText>
-			</FormControl>
-			<FormControlLabel
-				className={classnames(classes.setting, classes.switchLabel)}
-				control={
-					<Switch checked={settings.mirrorOwnVideo} onChange={onToggleMirrorOwnVideo} value='mirrorOwnVideo' />}
-				labelPlacement='start'
-				label={intl.formatMessage({
-					id             : 'settings.mirrorOwnVideo',
-					defaultMessage : 'Mirror view of own video'
-				})}
-			/>
-			<FormControlLabel
-				className={classnames(classes.setting, classes.switchLabel)}
-				control={
-					<Switch checked={settings.permanentTopBar} onChange={onTogglePermanentTopBar} value='permanentTopBar' />}
-				labelPlacement='start'
-				label={intl.formatMessage({
-					id             : 'settings.permanentTopBar',
-					defaultMessage : 'Permanent top bar'
-				})}
-			/>
-			<FormControlLabel
-				className={classnames(classes.setting, classes.switchLabel)}
-				control={<Switch checked={settings.hiddenControls} onChange={onToggleHiddenControls} value='hiddenControls' />}
-				labelPlacement='start'
-				label={intl.formatMessage({
-					id             : 'settings.hiddenControls',
-					defaultMessage : 'Hidden media controls'
-				})}
-			/>
-			<FormControlLabel
-				className={classnames(classes.setting, classes.switchLabel)}
-				control={<Switch checked={settings.buttonControlBar} onChange={onToggleButtonControlBar} value='buttonControlBar' />}
-				labelPlacement='start'
-				label={intl.formatMessage({
-					id             : 'settings.buttonControlBar',
-					defaultMessage : 'Separate media controls'
-				})}
-			/>
-			{ !isMobile &&
+				/>
+			}
+			{ !window.config.hiddenSettings.hideMediaCtrl &&
+				<FormControlLabel
+					className={classnames(classes.setting, classes.switchLabel)}
+					control={<Switch checked={settings.hiddenControls} onChange={onToggleHiddenControls} value='hiddenControls' />}
+					labelPlacement='start'
+					label={intl.formatMessage({
+						id             : 'settings.hiddenControls',
+						defaultMessage : 'Hidden media controls'
+					})}
+				/>
+			}
+
+			{ !window.config.hiddenSettings.separateMediaCtrl &&
+				<FormControlLabel
+					className={classnames(classes.setting, classes.switchLabel)}
+					control={<Switch checked={settings.buttonControlBar} onChange={onToggleButtonControlBar} value='buttonControlBar' />}
+					labelPlacement='start'
+					label={intl.formatMessage({
+						id             : 'settings.buttonControlBar',
+						defaultMessage : 'Separate media controls'
+					})}
+				/>
+			}
+			{ !isMobile && !window.config.hiddenSettings.drawerOverContent &&
 				<FormControlLabel
 					className={classnames(classes.setting, classes.switchLabel)}
 					control={<Switch checked={settings.drawerOverlayed} onChange={onToggleDrawerOverlayed} value='drawerOverlayed' />}
@@ -227,15 +201,17 @@ const AppearanceSettings = (props) =>
 					})}
 				/>
 			}
-			<FormControlLabel
-				className={classnames(classes.setting, classes.switchLabel)}
-				control={<Switch checked={settings.showNotifications} onChange={onToggleShowNotifications} value='showNotifications' />}
-				labelPlacement='start'
-				label={intl.formatMessage({
-					id             : 'settings.showNotifications',
-					defaultMessage : 'Show notifications'
-				})}
-			/>
+			{ !window.config.hiddenSettings.showNotifications &&
+				<FormControlLabel
+					className={classnames(classes.setting, classes.switchLabel)}
+					control={<Switch checked={settings.showNotifications} onChange={onToggleShowNotifications} value='showNotifications' />}
+					labelPlacement='start'
+					label={intl.formatMessage({
+						id             : 'settings.showNotifications',
+						defaultMessage : 'Show notifications'
+					})}
+				/>
+			}
 		</React.Fragment>
 	);
 };
