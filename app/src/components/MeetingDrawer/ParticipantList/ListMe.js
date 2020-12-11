@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { withRoomContext } from '../../../RoomContext';
-import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import * as appPropTypes from '../../appPropTypes';
 import { useIntl } from 'react-intl';
@@ -38,9 +37,9 @@ const styles = (theme) =>
 		{
 			padding : theme.spacing(1)
 		},
-		green :
+		warning :
 		{
-			color : 'rgba(0, 153, 0, 1)'
+			color : 'var(--warning-color)'
 		}
 	});
 
@@ -76,11 +75,8 @@ const ListMe = (props) =>
 						id             : 'tooltip.raisedHand',
 						defaultMessage : 'Raise hand'
 					})}
-					className={
-						classnames(me.raisedHand ? classes.green : null, classes.buttons)
-					}
 					disabled={me.raisedHandInProgress}
-					color='primary'
+					className={me.raisedHand ? classes.warning : null}
 					onClick={(e) =>
 					{
 						e.stopPropagation();

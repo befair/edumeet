@@ -173,8 +173,7 @@ class Room extends React.PureComponent
 			drawerOverlayed,
 			toolAreaOpen,
 			toggleToolArea,
-			classes,
-			theme
+			classes
 		} = this.props;
 
 		const View =
@@ -221,45 +220,6 @@ class Room extends React.PureComponent
 					onFullscreen={this.handleToggleFullscreen}
 				/>
 
-				{ (browser.platform === 'mobile' || drawerOverlayed) ?
-					<nav>
-						<Hidden implementation='css'>
-							<SwipeableDrawer
-								container={container}
-								variant='temporary'
-								anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-								open={toolAreaOpen}
-								onClose={() => toggleToolArea()}
-								onOpen={() => toggleToolArea()}
-								classes={{
-									paper : classes.drawerPaper
-								}}
-								ModalProps={{
-									keepMounted : true // Better open performance on mobile.
-								}}
-							>
-								<MeetingDrawer closeDrawer={toggleToolArea} />
-							</SwipeableDrawer>
-						</Hidden>
-					</nav>
-					:
-					<nav className={toolAreaOpen ? classes.drawer : null}>
-						<Hidden implementation='css'>
-							<Drawer
-								variant='persistent'
-								anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-								open={toolAreaOpen}
-								onClose={() => toggleToolArea()}
-								classes={{
-									paper : classes.drawerPaper
-								}}
-							>
-								<MeetingDrawer closeDrawer={toggleToolArea} />
-							</Drawer>
-						</Hidden>
-					</nav>
-				}
-
 				{ browser.platform === 'mobile' && browser.os !== 'ios' &&
 					<WakeLock />
 				}
@@ -289,6 +249,45 @@ class Room extends React.PureComponent
 				}
 				{ room.rolesManagerOpen &&
 					<RolesManager />
+				}
+
+				{ (browser.platform === 'mobile' || drawerOverlayed) ?
+					<nav>
+						<Hidden implementation='css'>
+							<SwipeableDrawer
+								container={container}
+								variant='temporary'
+								anchor='right'
+								open={toolAreaOpen}
+								onClose={() => toggleToolArea()}
+								onOpen={() => toggleToolArea()}
+								classes={{
+									paper : classes.drawerPaper
+								}}
+								ModalProps={{
+									keepMounted : true // Better open performance on mobile.
+								}}
+							>
+								<MeetingDrawer closeDrawer={toggleToolArea} />
+							</SwipeableDrawer>
+						</Hidden>
+					</nav>
+					:
+					<nav className={toolAreaOpen ? classes.drawer : null}>
+						<Hidden implementation='css'>
+							<Drawer
+								variant='persistent'
+								anchor='right'
+								open={toolAreaOpen}
+								onClose={() => toggleToolArea()}
+								classes={{
+									paper : classes.drawerPaper
+								}}
+							>
+								<MeetingDrawer closeDrawer={toggleToolArea} />
+							</Drawer>
+						</Hidden>
+					</nav>
 				}
 			</div>
 		);

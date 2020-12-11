@@ -198,98 +198,69 @@ var config =
 	/* ---------- Theme settings ---------- */
 	theme                :
 	{
-		palette :
+		palette:
 		{
-			primary :
+			primary:
 			{
-				main : '#313131'
+				main: '#094E98'
+			},
+			secondary:
+			{
+				main: '#464E51'
 			}
 		},
-		overrides :
+
+		overrides:
 		{
-			MuiAppBar :
+			MuiAppBar:
 			{
-				colorPrimary :
+				colorPrimary:
 				{
-					backgroundColor : '#313131'
+					backgroundColor: '#FFFFFF'
 				}
 			},
-			MuiButton :
+			MuiButton:
 			{
-				containedPrimary :
+				containedPrimary:
 				{
-					backgroundColor : '#5F9B2D',
-					'&:hover'       :
+					backgroundColor: '#094E98',
+					'&:hover':
 					{
-						backgroundColor : '#5F9B2D'
+						backgroundColor: '#195E91',
 					}
 				},
-				containedSecondary :
+				containedSecondary:
 				{
-					backgroundColor : '#f50057',
-					'&:hover'       :
+					backgroundColor: '#f50057',
+					'&:hover':
 					{
-						backgroundColor : '#f50057'
+						backgroundColor: '#f50057'
 					}
 				}
-
 			},
-			MuIconButton :
+			MuiFab:
 			{
-				colorPrimary :
+				primary:
 				{
-					backgroundColor : '#5F9B2D',
-					'&:hover'       :
+					backgroundColor: '#FFFFFF',
+					'&:hover':
 					{
-						backgroundColor : '#5F9B2D'
+						backgroundColor: '#EEEEEE',
+					},
+				},
+				secondary:
+				{
+					backgroundColor: '#555555',
+					'&:hover':
+					{
+						backgroundColor: '#454545',
 					}
 				},
-				colorSecondary :
-				{
-					backgroundColor : '#f50057',
-					'&:hover'       :
-					{
-						backgroundColor : '#f50057'
-					}
-				}
-
-			},
-
-			MuiFab :
-			{
-				primary :
-				{
-					backgroundColor : '#5F9B2D',
-					'&:hover'       :
-					{
-						backgroundColor : '#5F9B2D'
-					}
-				},
-				secondary :
-				{
-					backgroundColor : '#f50057',
-					'&:hover'       :
-					{
-						backgroundColor : '#f50057'
-					}
-				}
-
-			},
-			MuiBadge :
-			{
-				colorPrimary :
-				{
-					backgroundColor : '#5F9B2D',
-					'&:hover'       :
-					{
-						backgroundColor : '#518029'
-					}
-				}
 			}
-		},
-		typography :
-		{
-			useNextVariants : true
 		}
+	},
+	typography:
+	{
+		useNextVariants: true,
 	}
 };
