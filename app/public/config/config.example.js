@@ -6,12 +6,12 @@ var config =
 	productionPort  : 443,
 
 	// Show logo if "logo" is not null, else show title
-	logo         : 'images/logo.example.png',
-	title        : 'edumeet',
+	logo         : 'images/logo.svg',
+	title        : 'iorestoacasa.work',
 
 	// Service & Support URL
 	// if not set then not displayed on the about modals
-	supportUrl   : 'https://support.example.com',
+	supportUrl   : 'https://iorestoacasa.work/',
 
 	// Privacy and dataprotection URL or path
 	// (privacy/privacy.html that is a placeholder for your policies)
@@ -85,8 +85,8 @@ var config =
 	 **/
 	defaultResolution             : 'medium',
 	defaultFrameRate              : 15,
-	defaultScreenResolution       : 'veryhigh',
-	defaultScreenSharingFrameRate : 5,
+	defaultScreenResolution       : 'high',
+	defaultScreenSharingFrameRate : 10,
 
 	// The aspect ratio of the video from the camera
 	// this is not changeable in settings, only config
