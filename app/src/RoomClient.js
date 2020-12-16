@@ -3296,8 +3296,17 @@ export default class RoomClient
 			if (allowWhenRoleMissing)
 				store.dispatch(roomActions.setAllowWhenRoleMissing(allowWhenRoleMissing));
 
+			// Remove old roles from storage
+			store.getState().me.roles.forEach((role) =>
+			{
+				// Don't remove NORMAL role
+				if (role !== userRoles.NORMAL.id)
+					store.dispatch(meActions.removeRole(role));
+			});
+
 			const myRoles = store.getState().me.roles;
 
+			// Add new roles
 			for (const roleId of roles)
 			{
 				if (!myRoles.some((myRoleId) => roleId === myRoleId))
